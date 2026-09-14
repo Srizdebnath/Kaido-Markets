@@ -1,5 +1,5 @@
-import type { ICache } from '@agentmarket/cache';
-import { buildCacheKey } from '@agentmarket/cache';
+import type { ICache } from '@kaido-markets/cache';
+import { buildCacheKey } from '@kaido-markets/cache';
 import { AppError } from '@rohankumar4179/shared-types';
 import type { ApiListing } from '@prisma/client';
 import { extractOperations, type OpenApiOperation } from './openapi-spec.js';

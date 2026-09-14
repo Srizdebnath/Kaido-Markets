@@ -100,7 +100,7 @@ export default function NewListingPage() {
           </div>
           <Input
             label="Upstream URL"
-            hint="where AgentMarket will eventually proxy calls to"
+            hint="where Kaido Markets will eventually proxy calls to"
             value={upstreamUrl}
             onChange={(e) => setUpstreamUrl(e.target.value)}
             placeholder="https://api.yourcompany.com/v1/wallet-risk"

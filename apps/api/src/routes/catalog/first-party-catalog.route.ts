@@ -19,16 +19,16 @@ export function registerFirstPartyCatalogRoutes(server: FastifyInstance, _ctx: A
 
   server.get('/v1/catalog/docs', async (_request, reply) => {
     reply.header('content-type', 'text/html; charset=utf-8');
-    return renderSwaggerUiHtml('AgentMarket — First-Party API Docs', '/v1/catalog/openapi.json');
+    return renderSwaggerUiHtml('Kaido Markets — First-Party API Docs', '/v1/catalog/openapi.json');
   });
 
   server.get('/v1/catalog/postman.json', async (request, reply) => {
     const document = getFirstPartyOpenApiDocument();
     const collection = buildPostmanCollection(document as unknown as Record<string, unknown>, {
-      name: 'AgentMarket — First-Party API',
+      name: 'Kaido Markets — First-Party API',
       baseUrl: originOf(request),
     });
-    reply.header('content-disposition', 'attachment; filename="agentmarket-first-party.postman_collection.json"');
+    reply.header('content-disposition', 'attachment; filename="kaido-markets-first-party.postman_collection.json"');
     return collection;
   });
 }

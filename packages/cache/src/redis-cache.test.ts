@@ -14,11 +14,11 @@ describe.skipIf(!REDIS_URL)('RedisCache (real Redis)', () => {
 
   beforeAll(() => {
     client = new Redis(REDIS_URL!);
-    cache = new RedisCache(client, 'agentmarket:test:');
+    cache = new RedisCache(client, 'kaidomarkets:test:');
   });
 
   afterEach(async () => {
-    const keys = await client.keys('agentmarket:test:*');
+    const keys = await client.keys('kaidomarkets:test:*');
     if (keys.length > 0) await client.del(...keys);
   });
 
@@ -62,6 +62,6 @@ describe.skipIf(!REDIS_URL)('RedisCache (real Redis)', () => {
 
   it('prefixes keys so it never collides with unrelated data in the same Redis instance', async () => {
     await cache.set('key', 'value', 60);
-    expect(await client.get('agentmarket:test:key')).toBe(JSON.stringify('value'));
+    expect(await client.get('kaidomarkets:test:key')).toBe(JSON.stringify('value'));
   });
 });

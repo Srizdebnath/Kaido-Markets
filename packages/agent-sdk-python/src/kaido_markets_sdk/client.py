@@ -1,8 +1,8 @@
 """The demand side of the marketplace, packaged as code — the Python port
 of `packages/agent-sdk/src/client.ts`.
 
-Async-first: `AgentMarketClient` is built on `httpx.AsyncClient`; every
-network-touching method is a coroutine. `SyncAgentMarketClient` is a thin
+Async-first: `KaidoMarketsClient` is built on `httpx.AsyncClient`; every
+network-touching method is a coroutine. `SyncKaidoMarketsClient` is a thin
 convenience wrapper for scripts/notebooks that aren't already inside an
 event loop — it runs the same async client on a dedicated background loop.
 See the README's "Async-first" section for why.
@@ -106,7 +106,7 @@ class PendingCall:
 
     def __init__(
         self,
-        client: AgentMarketClient,
+        client: KaidoMarketsClient,
         resource: str,
         params: CallParams | None,
         options: CallOptions,
@@ -164,12 +164,12 @@ class PendingCall:
         return self._execute().__await__()
 
 
-class AgentMarketClient:
+class KaidoMarketsClient:
     """The demand side of the marketplace, packaged as code. One client per
     agent identity/wallet — construct it once, keep calling `.call()`.
 
     ```python
-    agent = AgentMarketClient(payment_scheme=MockPaymentScheme())
+    agent = KaidoMarketsClient(payment_scheme=MockPaymentScheme())
     risk = await agent.call("/v1/risk-analysis", {"symbol": "BTC"}).fallback("/v1/portfolio-health")
     ```
     """
@@ -198,7 +198,7 @@ class AgentMarketClient:
         self._cache: dict[str, _CacheEntry] = {}
         self.usage = UsageTracker()
 
-    async def __aenter__(self) -> AgentMarketClient:
+    async def __aenter__(self) -> KaidoMarketsClient:
         return self
 
     async def __aexit__(self, *exc_info: object) -> None:
@@ -335,7 +335,7 @@ def _iso_now() -> str:
 
 class _BackgroundLoop:
     """A dedicated event loop running on its own thread for the lifetime of
-    a `SyncAgentMarketClient` — lets that client's `httpx.AsyncClient`
+    a `SyncKaidoMarketsClient` — lets that client's `httpx.AsyncClient`
     (and its cache/budget/usage state) persist across calls instead of
     being torn down and rebuilt by a fresh `asyncio.run()` every time."""
 
@@ -352,8 +352,8 @@ class _BackgroundLoop:
         self._thread.join(timeout=5)
 
 
-class SyncAgentMarketClient:
-    """Thin synchronous convenience wrapper around `AgentMarketClient`, for
+class SyncKaidoMarketsClient:
+    """Thin synchronous convenience wrapper around `KaidoMarketsClient`, for
     scripts/notebooks that aren't already inside an event loop. Runs the
     same async client on a dedicated background loop so state (budget,
     cache, usage tracker) persists across calls.
@@ -364,7 +364,7 @@ class SyncAgentMarketClient:
     honest shape for "try these in order" here.
 
     ```python
-    agent = SyncAgentMarketClient(payment_scheme=MockPaymentScheme())
+    agent = SyncKaidoMarketsClient(payment_scheme=MockPaymentScheme())
     risk = agent.call("/v1/risk-analysis", {"symbol": "BTC"}, fallbacks=[("/v1/portfolio-health", None)])
     ```
     """
@@ -382,7 +382,7 @@ class SyncAgentMarketClient:
         http_client: httpx.AsyncClient | None = None,
     ) -> None:
         self._bg = _BackgroundLoop()
-        self._async = AgentMarketClient(
+        self._async = KaidoMarketsClient(
             payment_scheme=payment_scheme,
             base_url=base_url,
             budget=budget,
@@ -429,7 +429,7 @@ class SyncAgentMarketClient:
         self._bg.run(self._async.aclose())
         self._bg.close()
 
-    def __enter__(self) -> SyncAgentMarketClient:
+    def __enter__(self) -> SyncKaidoMarketsClient:
         return self
 
     def __exit__(self, *exc_info: object) -> None:

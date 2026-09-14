@@ -1,4 +1,4 @@
-import { redactSecrets } from '@agentmarket/secrets';
+import { redactSecrets } from '@kaido-markets/secrets';
 import type { ErrorResponse } from '@rohankumar4179/shared-types';
 import { AppError } from '@rohankumar4179/shared-types';
 import type { FastifyInstance } from 'fastify';

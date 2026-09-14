@@ -9,7 +9,7 @@ SDK's `AlgorandPaymentScheme` is in relative to `@x402-avm/avm`.
 import pytest
 from algosdk import account, mnemonic
 
-from agentmarket_sdk.payment.algorand_scheme import AlgorandPaymentScheme, LocalAvmSigner
+from kaido_markets_sdk.payment.algorand_scheme import AlgorandPaymentScheme, LocalAvmSigner
 
 
 def test_supports_only_algorand_caip2_networks():

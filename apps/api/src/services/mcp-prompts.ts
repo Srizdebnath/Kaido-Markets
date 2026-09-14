@@ -53,8 +53,8 @@ export function renderMcpPrompt(name: string, args: Record<string, string>): str
       const symbol = requireArg(args, 'symbol');
       return (
         `Call sentiment_analysis, risk_analysis, technical_summary, and analyze_market for ${symbol} ` +
-        '(the AgentMarket tools agentmarket__get_v1_sentiment, agentmarket__get_v1_risk_analysis, ' +
-        'agentmarket__get_v1_technical_summary, agentmarket__get_v1_analyze — pass symbol as the argument to each). ' +
+        '(the Kaido Markets tools kaidomarkets__get_v1_sentiment, kaidomarkets__get_v1_risk_analysis, ' +
+        'kaidomarkets__get_v1_technical_summary, kaidomarkets__get_v1_analyze — pass symbol as the argument to each). ' +
         `Synthesize the four results into one assessment of ${symbol}: overall stance, the strongest supporting ` +
         'signal, and the biggest risk flag. Each tool is x402-metered — if a call returns PAYMENT_REQUIRED, pay it ' +
         'before continuing.'
@@ -66,16 +66,16 @@ export function renderMcpPrompt(name: string, args: Record<string, string>): str
         .map((s) => s.trim())
         .filter(Boolean);
       return (
-        `For each of ${symbols.join(', ')}, call agentmarket__get_v1_sentiment, agentmarket__get_v1_risk_analysis, ` +
-        'and agentmarket__get_v1_technical_summary with that symbol. Build a comparison table (one row per asset, ' +
+        `For each of ${symbols.join(', ')}, call kaidomarkets__get_v1_sentiment, kaidomarkets__get_v1_risk_analysis, ` +
+        'and kaidomarkets__get_v1_technical_summary with that symbol. Build a comparison table (one row per asset, ' +
         'one column per signal) and call out which asset looks strongest and why.'
       );
     }
     case 'assess_portfolio_risk': {
       const holdings = requireArg(args, 'holdings');
       return (
-        `Call agentmarket__post_v1_portfolio_health with body {"holdings": ${holdings}}, then call ` +
-        'agentmarket__get_v1_execution_readiness for the portfolio\'s dominant asset. Summarize the portfolio\'s ' +
+        `Call kaidomarkets__post_v1_portfolio_health with body {"holdings": ${holdings}}, then call ` +
+        'kaidomarkets__get_v1_execution_readiness for the portfolio\'s dominant asset. Summarize the portfolio\'s ' +
         'health score, its main concentration/risk issue, and whether conditions currently favor acting on it.'
       );
     }

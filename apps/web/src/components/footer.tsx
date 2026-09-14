@@ -7,9 +7,9 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-6 py-10 text-center">
         <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <span className="flex h-6 w-6 items-center justify-center overflow-hidden rounded-md">
-            <Image src="/images/logo-mark.png" alt="AgentMarket logo" width={24} height={24} />
+            <Image src="/images/logo-mark.png" alt="Kaido Markets logo" width={24} height={24} />
           </span>
-          AgentMarket
+          Kaido Markets
         </span>
         <p className="max-w-md text-sm text-muted">
           The marketplace for AI agent commerce — powered by x402 and settled on Algorand.

@@ -1,11 +1,11 @@
 databases:
-  - name: agentmarket-db
+  - name: kaido-markets-db
     plan: basic-256mb
     postgresMajorVersion: "16"
 
 services:
   - type: web
-    name: agentmarket-api
+    name: kaido-markets-api
     runtime: docker
     dockerfilePath: ./apps/api/Dockerfile
     dockerContext: .
@@ -19,7 +19,7 @@ services:
       # `prisma migrate deploy` against it on every boot before serving traffic.
       - key: DATABASE_URL
         fromDatabase:
-          name: agentmarket-db
+          name: kaido-markets-db
           property: connectionString
       - key: PAYMENT_PROVIDER
         value: algorand-x402

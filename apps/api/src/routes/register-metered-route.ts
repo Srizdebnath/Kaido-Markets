@@ -1,4 +1,4 @@
-import type { RouteDiscovery } from '@agentmarket/payments';
+import type { RouteDiscovery } from '@kaido-markets/payments';
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import type { ZodType } from 'zod';
 import type { AppContext } from '../context.js';

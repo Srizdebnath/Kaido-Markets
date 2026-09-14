@@ -2,9 +2,9 @@
 
 import pytest
 
-from agentmarket_sdk.budget import Budget
-from agentmarket_sdk.errors import BudgetExceededError
-from agentmarket_sdk.types import BudgetConfig
+from kaido_markets_sdk.budget import Budget
+from kaido_markets_sdk.errors import BudgetExceededError
+from kaido_markets_sdk.types import BudgetConfig
 
 
 def test_allows_a_call_within_every_configured_cap():

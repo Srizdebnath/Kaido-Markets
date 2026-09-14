@@ -17,18 +17,18 @@ const remoteUrl = process.env.AGENTMARKET_MCP_URL?.trim() || DEFAULT_REMOTE_URL;
 
 /**
  * Thin stdio<->Streamable HTTP bridge: Claude Desktop/Cursor/Windsurf only
- * speak MCP over stdio to a locally-spawned process, but AgentMarket's real
+ * speak MCP over stdio to a locally-spawned process, but Kaido Markets' real
  * MCP server (apps/api's `/mcp` route) is a remote Streamable HTTP endpoint.
  * This process forwards every request verbatim to that endpoint — no tool
  * catalog, payment logic, or business rules are duplicated here.
  */
 async function main(): Promise<void> {
-  const remoteClient = new Client({ name: 'agentmarket-mcp-bridge', version: '0.1.0' }, { capabilities: {} });
+  const remoteClient = new Client({ name: 'kaido-markets-mcp-bridge', version: '0.1.0' }, { capabilities: {} });
   const remoteTransport = new StreamableHTTPClientTransport(new URL(remoteUrl));
   await remoteClient.connect(remoteTransport);
 
   const localServer = new Server(
-    { name: 'agentmarket', version: '0.1.0' },
+    { name: 'kaidomarkets', version: '0.1.0' },
     { capabilities: { tools: {}, resources: {}, prompts: {} } },
   );
 

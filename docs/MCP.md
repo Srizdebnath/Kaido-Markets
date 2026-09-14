@@ -1,6 +1,6 @@
 # Model Context Protocol (MCP)
 
-AgentMarket exposes its entire catalog — first-party financial intelligence and every
+Kaido Markets exposes its entire catalog — first-party financial intelligence and every
 published third-party listing — as MCP tools, resources, and prompts, so an MCP-compatible
 agent (Claude Desktop, Cursor, Windsurf, the MCP Inspector CLI, or any custom client) can
 discover, price, pay for, and invoke a capability without ever touching a REST endpoint
@@ -43,7 +43,7 @@ issued without a network hop.
 
 ```bash
 npm install
-npm run dev --workspace=@agentmarket/api   # http://localhost:4000
+npm run dev --workspace=@kaido-markets/api   # http://localhost:4000
 ```
 
 No extra configuration is needed beyond what [docs/INSTALLATION.md](INSTALLATION.md)
@@ -63,7 +63,7 @@ instance ([packages/mcp-server](../packages/mcp-server)):
 ```json
 {
   "mcpServers": {
-    "agentmarket": {
+    "kaidomarkets": {
       "command": "npx",
       "args": ["-y", "@rohankumar4179/agentmarket-mcp"]
     }
@@ -76,7 +76,7 @@ For a client that reads Streamable HTTP `mcpServers` config directly:
 ```json
 {
   "mcpServers": {
-    "agentmarket": {
+    "kaidomarkets": {
       "url": "http://localhost:4000/mcp",
       "transport": "http"
     }
@@ -96,18 +96,18 @@ every published third-party listing, plus one built-in discovery tool. Names are
 | Tool | Price | Source |
 |---|---|---|
 | `discover_capabilities` | Free | Built-in — ranks the catalog against a free-text need (see [Smart discovery](#smart-discovery)) |
-| `agentmarket__get_v1_analyze` | $0.05 | First-party |
-| `agentmarket__get_v1_market_summary` | $0.02 | First-party |
-| `agentmarket__get_v1_sentiment` | $0.02 | First-party |
-| `agentmarket__get_v1_risk_analysis` | $0.03 | First-party |
-| `agentmarket__get_v1_technical_summary` | $0.03 | First-party |
-| `agentmarket__get_v1_trending_assets` | $0.02 | First-party |
-| `agentmarket__post_v1_portfolio_health` | $0.04 | First-party |
-| `agentmarket__get_v1_execution_readiness` | $0.03 | First-party |
+| `kaidomarkets__get_v1_analyze` | $0.05 | First-party |
+| `kaidomarkets__get_v1_market_summary` | $0.02 | First-party |
+| `kaidomarkets__get_v1_sentiment` | $0.02 | First-party |
+| `kaidomarkets__get_v1_risk_analysis` | $0.03 | First-party |
+| `kaidomarkets__get_v1_technical_summary` | $0.03 | First-party |
+| `kaidomarkets__get_v1_trending_assets` | $0.02 | First-party |
+| `kaidomarkets__post_v1_portfolio_health` | $0.04 | First-party |
+| `kaidomarkets__get_v1_execution_readiness` | $0.03 | First-party |
 | `<listing-slug>__<operationId>` | Listing's own price | One per published third-party listing operation |
 
 Every tool's `inputSchema` carries the real operation's parameters plus a reserved
-`_agentmarket` control object (see below) — nothing is hidden in undocumented protocol
+`_kaidomarkets` control object (see below) — nothing is hidden in undocumented protocol
 state.
 
 ### Smart discovery
@@ -123,9 +123,9 @@ know the job, not the provider:
 { "name": "discover_capabilities", "arguments": { "query": "low-latency crypto sentiment" } }
 ```
 
-## The `_agentmarket` control block
+## The `_kaidomarkets` control block
 
-Every tool argument object accepts an optional `_agentmarket` object — namespaced so it
+Every tool argument object accepts an optional `_kaidomarkets` object — namespaced so it
 can never collide with a real parameter a listing happens to declare:
 
 | Field | Type | Meaning |
@@ -150,7 +150,7 @@ sequenceDiagram
     Route-->>MCP: 402 Payment Required
     MCP-->>Agent: isError:true, structuredContent {code: PAYMENT_REQUIRED, paymentRequired}
     Agent->>Agent: sign payment against paymentRequired.accepts[0]
-    Agent->>MCP: tools/call risk_analysis {symbol: "BTC", _agentmarket: {payment}}
+    Agent->>MCP: tools/call risk_analysis {symbol: "BTC", _kaidomarkets: {payment}}
     MCP->>Route: server.inject GET /v1/risk-analysis?symbol=BTC (X-PAYMENT header)
     Route->>Fac: verify + settle
     Fac-->>Route: settled, transactionId
@@ -160,7 +160,7 @@ sequenceDiagram
 
 The agent (or its MCP client wrapper) is always the one that signs — see
 [packages/agent-sdk](../packages/agent-sdk) for a client that automates this handshake,
-or `@x402-avm/avm`'s `ExactAvmScheme` for a real Algorand signer. **AgentMarket never asks
+or `@x402-avm/avm`'s `ExactAvmScheme` for a real Algorand signer. **Kaido Markets never asks
 for, stores, or needs a private key.**
 
 ## Resources
@@ -196,14 +196,14 @@ vocabulary — one small translation table, not a second taxonomy:
 
 | MCP code | Internal source |
 |---|---|
-| `PAYMENT_REQUIRED` | No `X-PAYMENT` / no `_agentmarket.payment` yet |
+| `PAYMENT_REQUIRED` | No `X-PAYMENT` / no `_kaidomarkets.payment` yet |
 | `PAYMENT_FAILED` | `PAYMENT_INVALID`, `PAYMENT_VERIFICATION_FAILED` |
 | `PAYMENT_ALREADY_USED` | `PAYMENT_ALREADY_SETTLED` (replay of a settled `paymentRef`) |
 | `PROVIDER_UNAVAILABLE` | Upstream (first- or third-party) unreachable, timed out, or blocked by the SSRF guard |
 | `RATE_LIMITED` | Global per-IP/per-wallet rate limit |
 | `INVALID_ARGUMENT` | `VALIDATION_ERROR` — bad/missing tool arguments |
 | `CAPABILITY_NOT_FOUND` | Unknown tool name, or `NOT_FOUND` from the underlying route |
-| `BUDGET_EXCEEDED` | Declared `_agentmarket` cap would be exceeded, or the platform's wallet daily-spend cap |
+| `BUDGET_EXCEEDED` | Declared `_kaidomarkets` cap would be exceeded, or the platform's wallet daily-spend cap |
 | `INTERNAL_ERROR` | Anything unmapped |
 
 `PAYMENT_EXPIRED` is in the spec's vocabulary but not currently distinguishable from
@@ -219,7 +219,7 @@ Three levels, two different enforcement points:
 - **Session** (`maxSessionSpendUsd`, `maxDailySpendUsd`): tracked in the shared `ICache`
   (Redis-backed once `CACHE_DRIVER=redis` is set — the same store `RateLimiterService`
   already uses, so it survives a restart and is shared correctly across horizontally-scaled
-  instances), keyed by the agent's own `_agentmarket.sessionId` — **not** the MCP
+  instances), keyed by the agent's own `_kaidomarkets.sessionId` — **not** the MCP
   transport's own session concept, which stays stateless. A session's caps are fixed by
   whichever call first declares them; a later call cannot loosen them.
 - **Platform daily cap**: the pre-existing, DB-backed per-wallet daily spend cap in
@@ -251,17 +251,17 @@ Three levels, two different enforcement points:
 
 1. `tools/call discover_capabilities {"query": "BTC market risk assessment"}` → ranks
    `risk_analysis` near the top.
-2. `tools/call agentmarket__get_v1_risk_analysis {"symbol": "BTC"}` → `PAYMENT_REQUIRED`,
+2. `tools/call kaidomarkets__get_v1_risk_analysis {"symbol": "BTC"}` → `PAYMENT_REQUIRED`,
    with `paymentRequired.accepts[0]` showing `$0.03`, network `algorand` (or `mock` in
    dev), `payTo`.
 3. Agent signs a payment against that requirement (via the Agent SDK, or its own signer).
-4. `tools/call agentmarket__get_v1_risk_analysis {"symbol": "BTC", "_agentmarket": {"payment": "<base64>"}}`
+4. `tools/call kaidomarkets__get_v1_risk_analysis {"symbol": "BTC", "_kaidomarkets": {"payment": "<base64>"}}`
    → x402 verifies + settles against the facilitator → Algorand settlement → the real
    risk-analysis handler runs → result returned.
 5. Agent continues reasoning with the structured result (`risk`, `reason[]`,
    `confidence`).
 
-The full flow — including a `_agentmarket.sessionId`/budget example and the exact JSON-RPC
+The full flow — including a `_kaidomarkets.sessionId`/budget example and the exact JSON-RPC
 frames — is exercised end-to-end in
 [`apps/api/test/catalog.integration.test.ts`](../apps/api/test/catalog.integration.test.ts)'s
 `MCP manifest and server` suite.
@@ -273,7 +273,7 @@ frames — is exercised end-to-end in
 | `tools/call` always returns `PAYMENT_REQUIRED` even after paying | The `X-PAYMENT` payload's `network`/`scheme` doesn't match the requirement you signed against — always sign `accepts[0]` from the *same* 402 response you're retrying. |
 | `BUDGET_EXCEEDED` on the very first call | `maxCostUsd` (or an already-established session cap) is lower than the tool's price — check `discover_capabilities`/`tools/list` for the real price first. |
 | Third-party tool returns `PROVIDER_UNAVAILABLE` immediately | The listing's `upstreamUrl` resolves to a blocked internal/loopback address (SSRF guard), or the upstream is genuinely down/unreachable/timing out. |
-| A published listing's operation isn't callable | Its `operationId` doesn't match anything in the tool name — call `tools/list` and use the exact `agentmarket.operationId` from `_meta`, not a guessed name. |
+| A published listing's operation isn't callable | Its `operationId` doesn't match anything in the tool name — call `tools/list` and use the exact `kaidomarkets.operationId` from `_meta`, not a guessed name. |
 | Session budget doesn't seem to persist | Confirm `CACHE_DRIVER=redis`/`REDIS_URL` are set in this deployment — with the default `CACHE_DRIVER=memory`, session state is still per API process and a restart or a different process behind a load balancer starts fresh. |
 
 ## Known limitations

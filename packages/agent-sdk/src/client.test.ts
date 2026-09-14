@@ -1,13 +1,13 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createFakeServer } from './test-helpers/fake-server.js';
 import { Budget } from './budget.js';
-import { AgentMarketClient } from './client.js';
+import { KaidoMarketsClient } from './client.js';
 import { AllProvidersFailedError, BudgetExceededError, UnsupportedPaymentSchemeError } from './errors.js';
 import { createMockPaymentScheme } from './payment/mock-scheme.js';
-import type { AgentEvent, AgentMarketClientConfig } from './types.js';
+import type { AgentEvent, KaidoMarketsClientConfig } from './types.js';
 
-function client(fetchImpl: typeof fetch, overrides: Partial<AgentMarketClientConfig> = {}) {
-  return new AgentMarketClient({
+function client(fetchImpl: typeof fetch, overrides: Partial<KaidoMarketsClientConfig> = {}) {
+  return new KaidoMarketsClient({
     baseUrl: 'http://fake.local',
     paymentScheme: createMockPaymentScheme('AGENT_ADDRESS'),
     fetchImpl,
@@ -16,7 +16,7 @@ function client(fetchImpl: typeof fetch, overrides: Partial<AgentMarketClientCon
   });
 }
 
-describe('AgentMarketClient — the 402 -> pay -> 200 loop', () => {
+describe('KaidoMarketsClient — the 402 -> pay -> 200 loop', () => {
   it('pays for and returns a metered resource', async () => {
     const { fetchImpl } = createFakeServer({
       '/v1/sentiment': { priceUsd: 0.02, response: { score: 78, label: 'GREED' } },
@@ -58,7 +58,7 @@ describe('AgentMarketClient — the 402 -> pay -> 200 loop', () => {
   });
 });
 
-describe('AgentMarketClient — budgets', () => {
+describe('KaidoMarketsClient — budgets', () => {
   it('refuses to pay for a call over the per-call cap, before ever constructing a payment', async () => {
     const { fetchImpl, attemptsFor } = createFakeServer({
       '/v1/analyze': { priceUsd: 0.05, response: { ok: true } },
@@ -83,7 +83,7 @@ describe('AgentMarketClient — budgets', () => {
   });
 });
 
-describe('AgentMarketClient — retries', () => {
+describe('KaidoMarketsClient — retries', () => {
   it('retries a transient 500 and succeeds on a later attempt', async () => {
     const { fetchImpl, attemptsFor } = createFakeServer({
       '/v1/flaky': { priceUsd: 0.01, response: { ok: true }, failFirstNAttempts: 2 },
@@ -106,7 +106,7 @@ describe('AgentMarketClient — retries', () => {
   });
 });
 
-describe('AgentMarketClient — fallback chains', () => {
+describe('KaidoMarketsClient — fallback chains', () => {
   it('falls through to a fallback when the primary resource fails', async () => {
     const { fetchImpl } = createFakeServer({
       '/v1/primary': { priceUsd: 0.03, response: {}, rejectPayment: true },
@@ -146,7 +146,7 @@ describe('AgentMarketClient — fallback chains', () => {
   });
 });
 
-describe('AgentMarketClient — cost estimation', () => {
+describe('KaidoMarketsClient — cost estimation', () => {
   it('reports the real price without paying', async () => {
     const { fetchImpl, attemptsFor } = createFakeServer({
       '/v1/analyze': { priceUsd: 0.05, response: {} },
@@ -159,7 +159,7 @@ describe('AgentMarketClient — cost estimation', () => {
   });
 });
 
-describe('AgentMarketClient — response caching', () => {
+describe('KaidoMarketsClient — response caching', () => {
   it('serves a repeated identical call from cache without a second payment', async () => {
     const { fetchImpl, attemptsFor } = createFakeServer({
       '/v1/sentiment': { priceUsd: 0.02, response: { score: 50 } },
@@ -187,7 +187,7 @@ describe('AgentMarketClient — response caching', () => {
   });
 });
 
-describe('AgentMarketClient — event stream', () => {
+describe('KaidoMarketsClient — event stream', () => {
   it('emits a coherent start -> cost_known -> paying -> success sequence', async () => {
     const { fetchImpl } = createFakeServer({
       '/v1/sentiment': { priceUsd: 0.02, response: { ok: true } },

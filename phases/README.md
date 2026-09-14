@@ -1,6 +1,6 @@
-# AgentMarket — Phase Folder
+# Kaido Markets — Phase Folder
 
-This folder tracks Phase 2 ("Platform Strategy") execution: one file per phase, each written as a **self-contained implementation prompt** — context, scope, explicit files/patterns to follow, acceptance criteria, and what's deliberately out of scope. Derived from the platform strategy artifact (`AgentMarket — Phase 2 Platform Strategy`, published as a Claude Artifact) and the "first moves" it closed with.
+This folder tracks Phase 2 ("Platform Strategy") execution: one file per phase, each written as a **self-contained implementation prompt** — context, scope, explicit files/patterns to follow, acceptance criteria, and what's deliberately out of scope. Derived from the platform strategy artifact (`Kaido Markets — Phase 2 Platform Strategy`, published as a Claude Artifact) and the "first moves" it closed with.
 
 ## How to use these
 

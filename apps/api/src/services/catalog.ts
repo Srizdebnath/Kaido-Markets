@@ -1,4 +1,4 @@
-import type { PublishedApiListing } from '@agentmarket/database';
+import type { PublishedApiListing } from '@kaido-markets/database';
 import type { MarketplaceApi } from '@rohankumar4179/shared-types';
 import type { MarketplaceApi as MarketplaceApiRow, ProviderAccount } from '@prisma/client';
 import type { AppContext } from '../context.js';

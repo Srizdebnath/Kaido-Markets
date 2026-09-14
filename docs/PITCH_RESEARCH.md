@@ -3,7 +3,7 @@
 Supporting research for [docs/PITCH_SCRIPT.md](PITCH_SCRIPT.md) and
 [docs/PITCH_DECK.md](PITCH_DECK.md): why the agentic-commerce thesis holds up, where
 x402/Algorand sit in the current protocol landscape, who else is building in this space,
-and the honest caveats. All figures below are external market research, not AgentMarket's
+and the honest caveats. All figures below are external market research, not Kaido Markets'
 own usage numbers — every claim is sourced, and where sources disagree it's noted rather
 than smoothed over.
 
@@ -53,10 +53,10 @@ exist to fill.
   category (machine-payable HTTP) is real enough that more than one major payments
   company is building for it simultaneously, not proof either standard has won.
 
-## 3. Protocol landscape — where AgentMarket sits
+## 3. Protocol landscape — where Kaido Markets sits
 
 Three different layers get conflated in "agentic commerce" coverage; it's worth being
-precise about which one AgentMarket is:
+precise about which one Kaido Markets is:
 
 | Layer | What it answers | Examples |
 |---|---|---|
@@ -64,17 +64,17 @@ precise about which one AgentMarket is:
 | **Payment authorization** | How does an agent prove it's allowed to spend, and how much? | AP2 (Google) — three signed Mandates: Intent, Cart, Payment |
 | **Payment settlement** | How does money actually move? | x402 (Coinbase, HTTP 402 + onchain stablecoin), MPP (Stripe + Tempo) |
 
-**AgentMarket doesn't pick one layer — it implements all three on one surface:** an A2A
+**Kaido Markets doesn't pick one layer — it implements all three on one surface:** an A2A
 agent card and MCP server for discovery (this repo publishes both, including a real npm
 package agents can `npx` straight into Claude Desktop/Cursor), x402 for settlement, and
-its own budget/session-cap system (`_agentmarket.maxCostUsd` /
+its own budget/session-cap system (`_kaidomarkets.maxCostUsd` /
 `maxSessionSpendUsd` / `maxDailySpendUsd`) doing the job AP2's Mandates do — proving an
 agent is allowed to spend up to a limit — with a simpler mechanism (a declared cap
 checked in-process) instead of a three-document signed-Mandate protocol.
 
 **Honest trade-off:** AP2's Mandate model gives a merchant a portable, cryptographically
 verifiable record of *user intent* behind a purchase — useful when a human ultimately
-owns the money and needs an audit trail back to their own authorization. AgentMarket's
+owns the money and needs an audit trail back to their own authorization. Kaido Markets'
 model is simpler and faster to integrate (no Mandate schema to implement) but doesn't
 carry that same user-intent provenance — it's built for the case where the agent itself
 is the economic actor, spending against a budget it was configured with, not relaying a
@@ -99,7 +99,7 @@ marketplace or agent. One analysis of the space put it plainly: *"VCs are placin
 largest bets on enabling agents to spend money safely and enabling merchants to sell to
 agents"* — i.e. the money is going into picks and shovels, not a mine.
 
-**Where AgentMarket differs:** it's not selling picks and shovels to someone else's
+**Where Kaido Markets differs:** it's not selling picks and shovels to someone else's
 marketplace — it *is* the marketplace, with the payment rail built in rather than
 integrated as a third-party dependency, and — per the three features shipped this
 cycle — agents on both sides of it: buyers metering intelligence calls, and now sellers
@@ -134,7 +134,7 @@ still approves the seller side.
   advantage, not a nice-to-have.
 - **A2A adoption:** shipped by Google in April 2025 as the discovery/communication layer
   companion to AP2's payment layer — the two-layer split (A2A talks, AP2 pays) is exactly
-  why AgentMarket implements both a discovery protocol (A2A agent card + MCP) and a
+  why Kaido Markets implements both a discovery protocol (A2A agent card + MCP) and a
   payment protocol (x402) rather than treating either as sufficient alone.
 - **Every major cloud vendor shipped an agent marketplace in the trailing 18 months**
   (Salesforce AgentExchange, Google Agentspace, Microsoft, AWS) — the discovery layer is

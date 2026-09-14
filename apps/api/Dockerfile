@@ -32,7 +32,7 @@ COPY packages ./packages
 COPY apps/api ./apps/api
 RUN npm install
 RUN npm run db:generate
-RUN npx turbo run build --filter=@agentmarket/api...
+RUN npx turbo run build --filter=@kaido-markets/api...
 
 # ---- runtime: only what's needed to run apps/api ----
 FROM base AS runtime

@@ -168,18 +168,18 @@ export function getFirstPartyOpenApiDocument(): OpenAPIObject {
         402: { description: 'Payment required (x402) — see X-PAYMENT / PAYMENT-REQUIRED headers.' },
         429: { description: 'Rate limited.' },
       },
-      // agentmarket-specific metadata (price, x402 resource id) — a
+      // kaidomarkets-specific metadata (price, x402 resource id) — a
       // vendor extension, not a standard OpenAPI field.
-      'x-agentmarket': { priceUsd: endpoint.priceUsd, resource: endpoint.resource, metered: true },
+      'x-kaidomarkets': { priceUsd: endpoint.priceUsd, resource: endpoint.resource, metered: true },
     });
   }
 
   cached = new OpenApiGeneratorV3(registry.definitions).generateDocument({
     openapi: '3.0.3',
     info: {
-      title: 'AgentMarket — First-Party Intelligence API',
+      title: 'Kaido Markets — First-Party Intelligence API',
       version: '1.0.0',
-      description: 'x402-metered market-intelligence endpoints operated directly by AgentMarket.',
+      description: 'x402-metered market-intelligence endpoints operated directly by Kaido Markets.',
     },
   });
 

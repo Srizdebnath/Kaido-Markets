@@ -6,7 +6,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState, type R
 import { peraToClientAvmSigner } from './pera-signer';
 
 function walletTokenStorageKey(address: string): string {
-  return `agentmarket:wallet-token:${address}`;
+  return `kaidomarkets:wallet-token:${address}`;
 }
 
 interface WalletContextValue {

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState, type ReactNode
 
 type Theme = 'dark' | 'light';
 
-const STORAGE_KEY = 'agentmarket:theme';
+const STORAGE_KEY = 'kaidomarkets:theme';
 
 interface ThemeContextValue {
   theme: Theme;

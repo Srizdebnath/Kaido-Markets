@@ -17,7 +17,7 @@
 // past the rate limiter, bump RATE_LIMIT_ANON_PER_MIN in apps/api/.env before
 // starting the server.
 import autocannon from 'autocannon';
-import { encodePaymentPayload } from '@agentmarket/payments';
+import { encodePaymentPayload } from '@kaido-markets/payments';
 
 const API_URL = process.argv[2] ?? 'http://localhost:4000';
 const DURATION = Number(process.argv[3] ?? 10);

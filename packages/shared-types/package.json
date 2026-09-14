@@ -1,7 +1,7 @@
 {
   "name": "@rohankumar4179/shared-types",
   "version": "0.1.0",
-  "description": "Provider-agnostic x402 payment, marketplace, and API shapes shared between AgentMarket's API and client SDKs.",
+  "description": "Provider-agnostic x402 payment, marketplace, and API shapes shared between Kaido Markets' API and client SDKs.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

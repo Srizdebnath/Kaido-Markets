@@ -4,15 +4,15 @@
 Building the atomic transaction group (the client's ASA transfer, plus the
 facilitator's fee-payer leg when fee abstraction applies) is delegated
 entirely to `x402-avm`'s `ExactAvmScheme` — GoPlausible's own Python SDK for
-the exact facilitator AgentMarket's `algorand-x402` payment provider talks
+the exact facilitator Kaido Markets' `algorand-x402` payment provider talks
 to (https://pypi.org/project/x402-avm/). Its wire format was verified
 against `packages/payments/src/algorand-x402-provider.ts` before writing
 this: identical CAIP-2 genesis hashes and identical `paymentGroup`/
 `paymentIndex` field names in the payload. This module only adapts field
-names between AgentMarket's `PaymentRequirement` and the shape that library
+names between Kaido Markets' `PaymentRequirement` and the shape that library
 expects — it does not reimplement any transaction-signing logic itself.
 
-Requires the `avm` extra (`pip install agentmarket-sdk[avm]`), which pulls
+Requires the `avm` extra (`pip install kaido-markets-sdk[avm]`), which pulls
 in `py-algorand-sdk`. Importing this module without that extra installed
 raises a clear `ImportError` rather than failing on some unrelated missing
 symbol deep inside a call.
@@ -32,7 +32,7 @@ try:
     from x402.schemas import PaymentRequirements as _PaymentRequirements
 except ImportError as exc:  # pragma: no cover — exercised only when the extra is missing
     raise ImportError(
-        "AlgorandPaymentScheme requires the 'avm' extra. Install with: pip install agentmarket-sdk[avm]"
+        "AlgorandPaymentScheme requires the 'avm' extra. Install with: pip install kaido-markets-sdk[avm]"
     ) from exc
 
 

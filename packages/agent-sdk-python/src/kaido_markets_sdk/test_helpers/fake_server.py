@@ -1,6 +1,6 @@
 """An `httpx.MockTransport`-backed fake implementing just enough of the real
 server's x402 contract (402 with `accepts`, then 200 once a well-formed
-X-PAYMENT header shows up) to unit test `AgentMarketClient`'s orchestration
+X-PAYMENT header shows up) to unit test `KaidoMarketsClient`'s orchestration
 — payment construction, budget checks, retries, fallbacks, caching — all of
 which are the SDK's own logic, independent of whichever `PaymentScheme`
 actually signs the payload.

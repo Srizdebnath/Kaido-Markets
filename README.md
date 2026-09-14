@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/assets/logo.png" alt="AgentMarket logo" width="120" height="120">
+  <img src="docs/assets/logo.png" alt="Kaido Markets logo" width="120" height="120">
 </p>
 
-<h1 align="center">AgentMarket</h1>
+<h1 align="center">Kaido Markets</h1>
 
 **x402-native marketplace for premium AI financial-intelligence APIs, settled in USDC on the Algorand blockchain.**
 
@@ -10,7 +10,7 @@ AI agents, trading bots, and autonomous applications discover, purchase, and con
 decision-intelligence endpoints through HTTP 402 micropayments — no subscriptions, no
 end-user API keys, no monthly billing. Every call is a real, on-chain payment.
 
-Instead of `BTC Price = $120,000`, AgentMarket returns:
+Instead of `BTC Price = $120,000`, Kaido Markets returns:
 
 ```json
 {
@@ -60,11 +60,11 @@ and [phases/README.md](phases/README.md) for the full ledger. Core intelligence 
 "beta"` in its response — see [docs/API.md](docs/API.md) for the exact contract of every
 endpoint, and [docs/ROADMAP.md](docs/ROADMAP.md) for what's next.
 
-## Why AgentMarket
+## Why Kaido Markets
 
 An autonomous agent can't fill out a signup form, hold an API key securely, or approve a
 recurring subscription. It *can* sign a transaction. x402 turns "pay to access" into a
-native HTTP mechanic (`402 Payment Required` → sign → retry → `200`), so AgentMarket sells
+native HTTP mechanic (`402 Payment Required` → sign → retry → `200`), so Kaido Markets sells
 intelligence the way an agent actually consumes the internet: one metered call at a time,
 paid for the instant it's needed, with the reasoning behind the answer included — not just
 a number the agent would have to re-derive a decision from.
@@ -142,7 +142,7 @@ provider fallback-chain diagrams, is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE
 ```mermaid
 sequenceDiagram
     participant Agent as AI Agent / Client
-    participant API as AgentMarket API
+    participant API as Kaido Markets API
     participant Fac as x402 Facilitator
     participant Chain as Algorand
 
@@ -167,7 +167,7 @@ settlement), and the replay-protection mechanics: [docs/PAYMENT_FLOW.md](docs/PA
 
 ```bash
 git clone <this-repo>
-cd agentmarket
+cd kaidomarkets
 npm install
 docker compose --profile postgres up -d postgres   # the datastore is Postgres
 npm run bootstrap   # copies .env.example -> .env, generates/migrates/seeds the DB
@@ -176,7 +176,7 @@ npm run dev          # API on :4000, web on :3000, both hot-reloading
 ```
 
 `DATABASE_URL` defaults to the local compose Postgres
-(`postgresql://agentmarket:agentmarket@localhost:5432/agentmarket`). No external API keys
+(`postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets`). No external API keys
 are required — every default market-data provider (CoinGecko, Binance, Alternative.me,
 DefiLlama) is keyless, and `PAYMENT_PROVIDER` defaults to an in-process mock so the full
 402 → pay → 200 flow works immediately, including from the web app's API Explorer. See
@@ -197,7 +197,7 @@ high-severity or license-incompatible dependencies.
 
 ```mermaid
 flowchart LR
-    Dev[git push origin main] --> GH[GitHub: rohan911438/Agent-Market]
+    Dev[git push origin main] --> GH[GitHub: rohan911438/Kaido-Markets]
     GH -->|webhook| Render[Render: rebuilds apps/api/Dockerfile]
     GH -->|GitHub App| Vercel[Vercel: rebuilds apps/web, root=apps/web]
     Render --> ApiLive[API redeployed]
@@ -248,7 +248,7 @@ npx -y @rohankumar4179/agentmarket-mcp
 or add it to the client's config directly:
 
 ```json
-{ "mcpServers": { "agentmarket": { "command": "npx", "args": ["-y", "@rohankumar4179/agentmarket-mcp"] } } }
+{ "mcpServers": { "kaidomarkets": { "command": "npx", "args": ["-y", "@rohankumar4179/agentmarket-mcp"] } } }
 ```
 
 See [packages/mcp-server](packages/mcp-server) for pointing it at a local API instead.
@@ -308,7 +308,7 @@ above as USDC — its
 is the live, on-chain record of every payment settled from the deployed web app, not a
 mocked ledger.
 
-There is no custom on-chain smart contract — AgentMarket is a metering/pricing layer in
+There is no custom on-chain smart contract — Kaido Markets is a metering/pricing layer in
 front of a standard x402 facilitator, so the only "contract" surface is the ASA above and
 the addresses it moves funds between. See [docs/PAYMENT_FLOW.md](docs/PAYMENT_FLOW.md) for
 the full 402 → sign → pay → 200 sequence, and
@@ -324,7 +324,7 @@ Autonomous agents call metered endpoints through a client SDK that handles the 4
 | | Package | Source |
 |---|---|---|
 | TypeScript | [`@rohankumar4179/agent-sdk`](https://www.npmjs.com/package/@rohankumar4179/agent-sdk) on npm | [packages/agent-sdk](packages/agent-sdk) |
-| Python | `agentmarket-sdk` — publishing to PyPI in progress | [packages/agent-sdk-python](packages/agent-sdk-python) |
+| Python | `kaido-markets-sdk` — publishing to PyPI in progress | [packages/agent-sdk-python](packages/agent-sdk-python) |
 
 Its types/schemas come from [`@rohankumar4179/shared-types`](https://www.npmjs.com/package/@rohankumar4179/shared-types),
 published separately and pulled in automatically.
@@ -332,7 +332,7 @@ published separately and pulled in automatically.
 ```bash
 npm install @rohankumar4179/agent-sdk
 # or
-pip install agentmarket-sdk
+pip install kaido-markets-sdk
 ```
 
 Until the Python package's first publish lands, install it straight from source: clone
@@ -341,7 +341,7 @@ the repo, then `pip install ./packages/agent-sdk-python`.
 ## Project structure
 
 ```
-agentmarket/
+kaidomarkets/
   apps/
     web/                 Next.js frontend — landing, API Explorer, marketplace, dashboard,
                           provider console, docs, status page

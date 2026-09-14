@@ -1,4 +1,4 @@
-import type { ApiProviderRegistry } from '@agentmarket/providers';
+import type { ApiProviderRegistry } from '@kaido-markets/providers';
 import type { RawMarketData } from '../types.js';
 
 const TIMEFRAME_TO_DAYS: Record<string, number> = { '1h': 1, '24h': 1, '7d': 7, '30d': 30 };

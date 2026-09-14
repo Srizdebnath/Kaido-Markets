@@ -1,4 +1,4 @@
-import type { ApiProviderRegistry } from '@agentmarket/providers';
+import type { ApiProviderRegistry } from '@kaido-markets/providers';
 import type { AnalyzeResponse, ResponseMeta } from '@rohankumar4179/shared-types';
 import type { Explainer } from './explainers/explainer.interface.js';
 import { collectMarketData } from './stages/collect-market-data.js';

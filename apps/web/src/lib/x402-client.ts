@@ -5,7 +5,7 @@ import type { PaymentRequiredResponse, PaymentRequirement } from '@rohankumar417
 import algosdk from 'algosdk';
 import { config } from './config';
 
-/** The subset of the 402 response needed to echo back for Bazaar discovery — see AgentMarket's agent-sdk `DiscoveryEcho`. */
+/** The subset of the 402 response needed to echo back for Bazaar discovery — see Kaido Markets' agent-sdk `DiscoveryEcho`. */
 export type DiscoveryEcho = Pick<PaymentRequiredResponse, 'extensions' | 'resource'>;
 
 /**
@@ -54,7 +54,7 @@ const ALGOD_URLS: Record<string, string> = {
  * Sentinel `PaymentRequirement.asset` value a native-ALGO requirement carries
  * — see `NATIVE_ALGO_ASSET` in packages/payments/src/algorand-x402-provider.ts.
  * Duplicated here (not imported) since apps/web doesn't depend on
- * @agentmarket/payments — this is the wire-level contract, not a shared type.
+ * @kaido-markets/payments — this is the wire-level contract, not a shared type.
  */
 export const NATIVE_ALGO_ASSET = 'ALGO';
 

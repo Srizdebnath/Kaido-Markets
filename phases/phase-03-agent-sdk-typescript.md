@@ -2,10 +2,10 @@
 
 ## What shipped
 
-`packages/agent-sdk` (`@rohankumar4179/agent-sdk`) — the demand-side client. `AgentMarketClient` runs the 402 → pay → 200 loop automatically behind a fluent, thenable `.call()` API:
+`packages/agent-sdk` (`@rohankumar4179/agent-sdk`) — the demand-side client. `KaidoMarketsClient` runs the 402 → pay → 200 loop automatically behind a fluent, thenable `.call()` API:
 
 ```ts
-const agent = new AgentMarketClient({ paymentScheme: createMockPaymentScheme(), budget: { perCallUsd: 0.1 } });
+const agent = new KaidoMarketsClient({ paymentScheme: createMockPaymentScheme(), budget: { perCallUsd: 0.1 } });
 const risk = await agent.call('/v1/risk-analysis', { symbol: 'BTC' }).fallback('/v1/portfolio-health');
 ```
 

@@ -6,7 +6,7 @@ import { z } from 'zod';
  * server-side internals are protobuf-first (numeric `TaskState` enums,
  * `$case`-discriminated `Part` unions, generated `MessageFns` encoders),
  * which fights a plain Fastify + Zod + JSON stack for no benefit here:
- * none of AgentMarket's first-party endpoints need gRPC, streaming, push
+ * none of Kaido Markets' first-party endpoints need gRPC, streaming, push
  * notifications, or multi-tenant scoping. See Phase 5's decision notes.
  */
 

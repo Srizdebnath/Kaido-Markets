@@ -17,7 +17,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgresql://agentmarket:agentmarket@localhost:5432/agentmarket
+      DATABASE_URL: postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets
       REDIS_URL: redis://localhost:6379
     services:
       redis:
@@ -32,13 +32,13 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: agentmarket
-          POSTGRES_PASSWORD: agentmarket
-          POSTGRES_DB: agentmarket
+          POSTGRES_USER: kaidomarkets
+          POSTGRES_PASSWORD: kaidomarkets
+          POSTGRES_DB: kaidomarkets
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U agentmarket"
+          --health-cmd "pg_isready -U kaidomarkets"
           --health-interval 5s
           --health-timeout 3s
           --health-retries 5

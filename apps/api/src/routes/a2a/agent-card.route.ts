@@ -19,9 +19,9 @@ export function registerAgentCardRoute(server: FastifyInstance, ctx: AppContext)
     const origin = originOf(request);
 
     const card: A2AAgentCard = {
-      name: 'agentmarket',
+      name: 'kaidomarkets',
       description:
-        'AgentMarket — x402-metered market intelligence. First-party skills are directly callable as A2A tasks; ' +
+        'Kaido Markets — x402-metered market intelligence. First-party skills are directly callable as A2A tasks; ' +
         'third-party listings are discoverable but not yet invocable (no gateway to their upstream).',
       url: `${origin}/a2a`,
       version: '1.0.0',
@@ -31,17 +31,17 @@ export function registerAgentCardRoute(server: FastifyInstance, ctx: AppContext)
       skills: tools.map((tool) => ({
         id: tool.name,
         name: tool.name,
-        description: tool.agentmarket.isThirdParty
+        description: tool.kaidomarkets.isThirdParty
           ? `${tool.description} (third-party listing — discoverable only; message/send returns UnsupportedOperation until a gateway exists)`
           : tool.description,
         tags: [
-          tool.agentmarket.isThirdParty ? 'third-party' : 'first-party',
-          tool.agentmarket.method.toLowerCase(),
-          ...(tool.agentmarket.slug ? [tool.agentmarket.slug] : []),
+          tool.kaidomarkets.isThirdParty ? 'third-party' : 'first-party',
+          tool.kaidomarkets.method.toLowerCase(),
+          ...(tool.kaidomarkets.slug ? [tool.kaidomarkets.slug] : []),
         ],
         inputModes: ['application/json'],
         outputModes: ['application/json'],
-        metadata: { inputSchema: tool.inputSchema, agentmarket: tool.agentmarket },
+        metadata: { inputSchema: tool.inputSchema, kaidomarkets: tool.kaidomarkets },
       })),
     };
 

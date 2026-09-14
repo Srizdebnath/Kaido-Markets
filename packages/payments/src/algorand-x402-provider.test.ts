@@ -80,11 +80,11 @@ describe('AlgorandX402Provider — challenge tag + Bazaar discovery', () => {
     const withName = new AlgorandX402Provider({
       ...baseConfig,
       bazaarDiscovery: true,
-      merchant: { name: 'Agent Market', website: 'https://x.example', categories: ['api', 'algorand'] },
+      merchant: { name: 'Kaido Markets', website: 'https://x.example', categories: ['api', 'algorand'] },
     });
     const ext = withName.getResponseExtensions(ctx({ method: 'GET' }))!;
     expect((ext['x402-merchant'] as { info: Record<string, unknown> }).info).toEqual({
-      name: 'Agent Market',
+      name: 'Kaido Markets',
       website: 'https://x.example',
       categories: ['api', 'algorand'],
     });

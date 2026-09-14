@@ -5,15 +5,15 @@ from __future__ import annotations
 import httpx
 import pytest
 
-from agentmarket_sdk.budget import Budget
-from agentmarket_sdk.client import AgentMarketClient
-from agentmarket_sdk.errors import AllProvidersFailedError, BudgetExceededError, UnsupportedPaymentSchemeError
-from agentmarket_sdk.payment.mock_scheme import MockPaymentScheme
-from agentmarket_sdk.test_helpers.fake_server import FakeResource, create_fake_server
-from agentmarket_sdk.types import BudgetConfig, RetryConfig
+from kaido_markets_sdk.budget import Budget
+from kaido_markets_sdk.client import KaidoMarketsClient
+from kaido_markets_sdk.errors import AllProvidersFailedError, BudgetExceededError, UnsupportedPaymentSchemeError
+from kaido_markets_sdk.payment.mock_scheme import MockPaymentScheme
+from kaido_markets_sdk.test_helpers.fake_server import FakeResource, create_fake_server
+from kaido_markets_sdk.types import BudgetConfig, RetryConfig
 
 
-def make_client(http_client: httpx.AsyncClient, **overrides) -> AgentMarketClient:
+def make_client(http_client: httpx.AsyncClient, **overrides) -> KaidoMarketsClient:
     defaults = dict(
         base_url="http://fake.local",
         payment_scheme=MockPaymentScheme("AGENT_ADDRESS"),
@@ -21,7 +21,7 @@ def make_client(http_client: httpx.AsyncClient, **overrides) -> AgentMarketClien
         retry=RetryConfig(base_delay_ms=1, max_delay_ms=5),
     )
     defaults.update(overrides)
-    return AgentMarketClient(**defaults)
+    return KaidoMarketsClient(**defaults)
 
 
 class TestThe402PayLoop:

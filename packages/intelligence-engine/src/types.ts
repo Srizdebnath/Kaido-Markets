@@ -5,7 +5,7 @@ import type {
   OhlcData,
   PriceData,
   ProviderResult,
-} from '@agentmarket/providers';
+} from '@kaido-markets/providers';
 
 export interface RawMarketData {
   symbol: string;

@@ -26,7 +26,7 @@ async function main(): Promise<void> {
   try {
     await server.listen({ port: ctx.config.server.port, host: ctx.config.server.host });
     server.log.info(
-      `AgentMarket API listening on ${ctx.config.server.host}:${ctx.config.server.port} (payment provider: ${ctx.config.payments.provider}, cache: ${ctx.config.cache.driver})`,
+      `Kaido Markets API listening on ${ctx.config.server.host}:${ctx.config.server.port} (payment provider: ${ctx.config.payments.provider}, cache: ${ctx.config.cache.driver})`,
     );
   } catch (err) {
     server.log.error(err);

@@ -44,7 +44,7 @@ marketplace, pricing, docs), tests, docs, CI, deployment configs.
 
 ## Phase 5 — Marketplace
 
-- Third-party API listings (not just AgentMarket's own endpoints) with the same x402
+- Third-party API listings (not just Kaido Markets' own endpoints) with the same x402
   metering, `payTo` routing per listing.
 - Provider/publisher self-serve onboarding.
 

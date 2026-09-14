@@ -1,8 +1,8 @@
 {
-  "name": "agentmarket",
+  "name": "kaidomarkets",
   "version": "0.1.0",
   "private": true,
-  "description": "AgentMarket — x402-native marketplace for premium AI/financial-intelligence APIs on Algorand",
+  "description": "Kaido Markets — x402-native marketplace for premium AI/financial-intelligence APIs on Algorand",
   "license": "MIT",
   "workspaces": [
     "apps/*",
@@ -15,10 +15,10 @@
     "test": "turbo run test",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean",
-    "db:generate": "npm run generate --workspace=@agentmarket/database",
-    "db:migrate": "npm run migrate --workspace=@agentmarket/database",
-    "db:migrate:deploy": "npm run migrate:deploy --workspace=@agentmarket/database",
-    "db:seed": "npm run seed --workspace=@agentmarket/database",
+    "db:generate": "npm run generate --workspace=@kaido-markets/database",
+    "db:migrate": "npm run migrate --workspace=@kaido-markets/database",
+    "db:migrate:deploy": "npm run migrate:deploy --workspace=@kaido-markets/database",
+    "db:seed": "npm run seed --workspace=@kaido-markets/database",
     "bootstrap": "node scripts/bootstrap.mjs",
     "load-test": "node apps/api/scripts/load-test.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\" --ignore-path .gitignore"

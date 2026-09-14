@@ -1,8 +1,8 @@
-import { createCache } from '@agentmarket/cache';
-import type { ApiConfig } from '@agentmarket/config';
-import { createPrismaClient, Database } from '@agentmarket/database';
-import { IntelligenceEngine, RuleBasedExplainer } from '@agentmarket/intelligence-engine';
-import { createPaymentProviderRegistry, X402PaymentService } from '@agentmarket/payments';
+import { createCache } from '@kaido-markets/cache';
+import type { ApiConfig } from '@kaido-markets/config';
+import { createPrismaClient, Database } from '@kaido-markets/database';
+import { IntelligenceEngine, RuleBasedExplainer } from '@kaido-markets/intelligence-engine';
+import { createPaymentProviderRegistry, X402PaymentService } from '@kaido-markets/payments';
 import type { AppContext } from '../../src/context.js';
 import { initTracingForTests } from '../../src/observability/tracing.js';
 import { McpSessionBudgetStore } from '../../src/services/mcp-session-budget.js';

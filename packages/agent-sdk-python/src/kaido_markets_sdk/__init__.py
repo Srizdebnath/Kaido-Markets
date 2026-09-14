@@ -1,12 +1,12 @@
-"""agentmarket_sdk — the demand side of AgentMarket, packaged as Python.
+"""kaido_markets_sdk — the demand side of Kaido Markets, packaged as Python.
 
 See README.md for the async-first decision and full quickstart.
 """
 
 from .budget import Budget, create_shared_budget
-from .client import AgentMarketClient, PendingCall, SyncAgentMarketClient
+from .client import KaidoMarketsClient, PendingCall, SyncKaidoMarketsClient
 from .errors import (
-    AgentMarketError,
+    KaidoMarketsError,
     AllProvidersFailedError,
     BudgetExceededError,
     HttpError,
@@ -46,8 +46,8 @@ __all__ = [
     "ATOMIC_UNITS_PER_USD",
     "AgentEvent",
     "AgentEventListener",
-    "AgentMarketClient",
-    "AgentMarketError",
+    "KaidoMarketsClient",
+    "KaidoMarketsError",
     "AllProvidersFailedError",
     "Budget",
     "BudgetConfig",
@@ -73,7 +73,7 @@ __all__ = [
     "PendingCall",
     "ProviderAttempt",
     "RetryConfig",
-    "SyncAgentMarketClient",
+    "SyncKaidoMarketsClient",
     "UnsupportedPaymentSchemeError",
     "UsageRecord",
     "UsageSummary",
@@ -83,8 +83,8 @@ __all__ = [
 ]
 
 # AlgorandPaymentScheme is intentionally NOT imported here — it requires the
-# optional `avm` extra (`pip install agentmarket-sdk[avm]`), and importing
+# optional `avm` extra (`pip install kaido-markets-sdk[avm]`), and importing
 # it eagerly would make the whole package fail to import for anyone who
 # only needs MockPaymentScheme. Import it explicitly:
 #
-#     from agentmarket_sdk.payment.algorand_scheme import AlgorandPaymentScheme
+#     from kaido_markets_sdk.payment.algorand_scheme import AlgorandPaymentScheme

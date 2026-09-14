@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generates a new Algorand TestNet account for the AgentMarket x402 demo.
+// Generates a new Algorand TestNet account for the Kaido Markets x402 demo.
 // Usage: node scripts/testnet/generate-wallet.mjs <label>
 //   e.g. node scripts/testnet/generate-wallet.mjs merchant
 //        node scripts/testnet/generate-wallet.mjs payer

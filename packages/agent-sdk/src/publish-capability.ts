@@ -42,7 +42,7 @@ export interface PublishCapabilityResult {
  * Self-verification (`POST /v1/providers/verify`) has no human review step
  * at this trust tier — see provider-account.route.ts — so the whole flow
  * completes end to end with no human in the loop, the same "agentic
- * commerce" property AgentMarket already gives the *buying* side.
+ * commerce" property Kaido Markets already gives the *buying* side.
  *
  * Throws (via `readError`) with the server's real error surfaced —
  * including, for a rejected `/publish` call, the exact unmet requirements

@@ -1,5 +1,5 @@
-import { buildCacheKey, ttlFor } from '@agentmarket/cache';
-import { sentimentLabel } from '@agentmarket/intelligence-engine';
+import { buildCacheKey, ttlFor } from '@kaido-markets/cache';
+import { sentimentLabel } from '@kaido-markets/intelligence-engine';
 import { SentimentResponseSchema, SymbolSchema, type SentimentResponse } from '@rohankumar4179/shared-types';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';

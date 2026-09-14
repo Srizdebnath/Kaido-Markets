@@ -7,7 +7,7 @@ export interface CatalogTool {
   name: string;
   description: string;
   inputSchema: { type: 'object'; properties: Record<string, unknown>; required?: string[] };
-  agentmarket: McpToolMetadata;
+  kaidomarkets: McpToolMetadata;
 }
 
 function toToolName(namespace: string, operationId: string): string {
@@ -17,17 +17,17 @@ function toToolName(namespace: string, operationId: string): string {
 /**
  * Every catalog tool's input schema carries this reserved, namespaced block
  * alongside the operation's real parameters — namespaced under a single
- * `_agentmarket` object (not flat reserved keys) so it can never collide
+ * `_kaidomarkets` object (not flat reserved keys) so it can never collide
  * with a real parameter name a first- or third-party operation happens to
  * declare (e.g. a listing with its own "payment" field). This is the
  * machine-readable surface an MCP client uses to complete the x402 dance
  * and declare a budget — see services/mcp-tool-executor.ts and
  * services/mcp-session-budget.ts, which read exactly these fields back out.
  */
-const AGENTMARKET_CONTROL_SCHEMA = {
+const KAIDO_MARKETS_CONTROL_SCHEMA = {
   type: 'object',
   description:
-    'Reserved AgentMarket control fields. Not part of the underlying API — read by the MCP tool executor, ' +
+    'Reserved Kaido Markets control fields. Not part of the underlying API — read by the MCP tool executor, ' +
     'never forwarded to the endpoint itself.',
   properties: {
     payment: {
@@ -58,7 +58,7 @@ const AGENTMARKET_CONTROL_SCHEMA = {
 } as const;
 
 function operationToInputSchema(operation: OpenApiOperation): CatalogTool['inputSchema'] {
-  const properties: Record<string, unknown> = { _agentmarket: AGENTMARKET_CONTROL_SCHEMA };
+  const properties: Record<string, unknown> = { _kaidomarkets: KAIDO_MARKETS_CONTROL_SCHEMA };
   const required: string[] = [];
 
   for (const param of operation.parameters) {
@@ -89,10 +89,10 @@ export async function buildCatalogTools(ctx: AppContext): Promise<CatalogTool[]>
   for (const operation of extractOperations(firstPartyDoc as unknown as Record<string, unknown>)) {
     const endpoint = FIRST_PARTY_ENDPOINTS.find((e) => e.path === operation.path && e.method === operation.method);
     tools.push({
-      name: toToolName('agentmarket', operation.operationId),
+      name: toToolName('kaidomarkets', operation.operationId),
       description: operation.summary ?? operation.description ?? `${operation.method.toUpperCase()} ${operation.path}`,
       inputSchema: operationToInputSchema(operation),
-      agentmarket: {
+      kaidomarkets: {
         priceUsd: endpoint?.priceUsd ?? null,
         resource: endpoint?.resource ?? operation.path,
         method: operation.method.toUpperCase() as McpToolMetadata['method'],
@@ -119,7 +119,7 @@ export async function buildCatalogTools(ctx: AppContext): Promise<CatalogTool[]>
         description:
           operation.summary ?? operation.description ?? `${listing.name}: ${operation.method.toUpperCase()} ${operation.path}`,
         inputSchema: operationToInputSchema(operation),
-        agentmarket: {
+        kaidomarkets: {
           priceUsd: listing.priceUsd,
           resource: `${listing.upstreamUrl}${operation.path}`,
           method: operation.method.toUpperCase() as McpToolMetadata['method'],
@@ -139,7 +139,7 @@ export async function buildCatalogTools(ctx: AppContext): Promise<CatalogTool[]>
  * operation — Phase 9's ranked discovery (services/discovery-ranking.ts, via
  * routes/discover.route.ts's exported `runDiscovery`), exposed as an MCP
  * tool so an agent can search by capability ("low-latency crypto sentiment")
- * without first fetching the whole catalog. Free — no `_agentmarket`
+ * without first fetching the whole catalog. Free — no `_kaidomarkets`
  * payment/budget fields apply, so its schema omits them rather than
  * advertising controls that do nothing.
  */
@@ -159,6 +159,6 @@ export function buildDiscoverCapabilitiesTool(): CatalogTool {
       },
       required: ['query'],
     },
-    agentmarket: { priceUsd: null, resource: '/v1/discover', method: 'POST', isThirdParty: false },
+    kaidomarkets: { priceUsd: null, resource: '/v1/discover', method: 'POST', isThirdParty: false },
   };
 }

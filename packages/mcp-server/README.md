@@ -1,7 +1,7 @@
 # @rohankumar4179/agentmarket-mcp
 
 A stdio MCP server that bridges local MCP clients (Claude Desktop, Cursor,
-Windsurf, the MCP Inspector, ...) to AgentMarket's remote Streamable HTTP MCP
+Windsurf, the MCP Inspector, ...) to Kaido Markets' remote Streamable HTTP MCP
 endpoint. These clients only know how to spawn a local stdio process — they
 can't speak to a remote `/mcp` URL directly — so this package is a thin
 process that forwards every `tools/list`, `tools/call`, `resources/*`, and
@@ -16,7 +16,7 @@ Add to your MCP client's config (e.g. Claude Desktop's `claude_desktop_config.js
 ```json
 {
   "mcpServers": {
-    "agentmarket": {
+    "kaidomarkets": {
       "command": "npx",
       "args": ["-y", "@rohankumar4179/agentmarket-mcp"]
     }
@@ -24,14 +24,14 @@ Add to your MCP client's config (e.g. Claude Desktop's `claude_desktop_config.js
 }
 ```
 
-By default it connects to the deployed AgentMarket API
+By default it connects to the deployed Kaido Markets API
 (`https://agentmarket-api-bedc.onrender.com/mcp`). Point it at a local API
 instead (e.g. while developing) with:
 
 ```json
 {
   "mcpServers": {
-    "agentmarket": {
+    "kaidomarkets": {
       "command": "npx",
       "args": ["-y", "@rohankumar4179/agentmarket-mcp"],
       "env": { "AGENTMARKET_MCP_URL": "http://localhost:4000/mcp" }

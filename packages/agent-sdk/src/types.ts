@@ -56,8 +56,8 @@ export type AgentEvent =
 
 export type AgentEventListener = (event: AgentEvent) => void;
 
-export interface AgentMarketClientConfig {
-  /** Base URL of the AgentMarket API. @default "http://localhost:4000" */
+export interface KaidoMarketsClientConfig {
+  /** Base URL of the Kaido Markets API. @default "http://localhost:4000" */
   baseUrl?: string;
   /** How payments get signed. Use `createMockPaymentScheme()` for local dev, `createAlgorandPaymentScheme(...)` for real settlement. */
   paymentScheme: PaymentScheme;

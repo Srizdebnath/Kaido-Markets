@@ -1,7 +1,7 @@
 """Port of packages/agent-sdk/src/payment/mock-scheme.test.ts."""
 
-from agentmarket_sdk.payment.mock_scheme import MockPaymentScheme
-from agentmarket_sdk.types import PaymentRequirement
+from kaido_markets_sdk.payment.mock_scheme import MockPaymentScheme
+from kaido_markets_sdk.types import PaymentRequirement
 
 REQUIREMENT = PaymentRequirement(
     scheme="exact",

@@ -2,7 +2,7 @@
 
 ## Context
 
-You're working on AgentMarket, an x402-native marketplace for AI-agent-callable APIs (Node/Fastify API in `apps/api`, Next.js frontend in `apps/web`, shared packages under `packages/`). Phase 01 built a control-plane API letting third-party providers register, publish, and price listings (`packages/database`'s `ProviderAccount`/`ApiListing` models, routes in `apps/api/src/routes/control-plane/`). `CreateListingRequestSchema` (`packages/shared-types/src/control-plane.ts`) already has an optional `openApiSpec: string` field, but nothing parses, validates, or does anything with it yet.
+You're working on Kaido Markets, an x402-native marketplace for AI-agent-callable APIs (Node/Fastify API in `apps/api`, Next.js frontend in `apps/web`, shared packages under `packages/`). Phase 01 built a control-plane API letting third-party providers register, publish, and price listings (`packages/database`'s `ProviderAccount`/`ApiListing` models, routes in `apps/api/src/routes/control-plane/`). `CreateListingRequestSchema` (`packages/shared-types/src/control-plane.ts`) already has an optional `openApiSpec: string` field, but nothing parses, validates, or does anything with it yet.
 
 The platform strategy calls for every listing — first-party and third-party — to be protocol-native: upload a spec once, get Swagger UI, a Postman collection, and MCP tool discoverability for free, without the provider (or us, for first-party endpoints) maintaining each artifact by hand.
 

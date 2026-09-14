@@ -1,5 +1,5 @@
 {
-  "name": "@agentmarket/intelligence-engine",
+  "name": "@kaido-markets/intelligence-engine",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@agentmarket/providers": "*",
+    "@kaido-markets/providers": "*",
     "@rohankumar4179/shared-types": "*"
   }
 }

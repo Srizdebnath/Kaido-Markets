@@ -2,7 +2,7 @@
   "name": "@rohankumar4179/agentmarket-mcp",
   "version": "0.1.0",
   "type": "module",
-  "description": "Stdio MCP server that bridges Claude Desktop, Cursor, Windsurf, and other local MCP clients to AgentMarket's remote Streamable HTTP MCP endpoint (/mcp) — install with npx, no local API required.",
+  "description": "Stdio MCP server that bridges Claude Desktop, Cursor, Windsurf, and other local MCP clients to Kaido Markets' remote Streamable HTTP MCP endpoint (/mcp) — install with npx, no local API required.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {

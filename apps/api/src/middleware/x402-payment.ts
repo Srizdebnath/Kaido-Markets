@@ -1,5 +1,5 @@
-import { Prisma } from '@agentmarket/database';
-import type { RouteDiscovery } from '@agentmarket/payments';
+import { Prisma } from '@kaido-markets/database';
+import type { RouteDiscovery } from '@kaido-markets/payments';
 import { AppError } from '@rohankumar4179/shared-types';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { AppContext } from '../context.js';

@@ -1,4 +1,4 @@
-import type { ICache } from '@agentmarket/cache';
+import type { ICache } from '@kaido-markets/cache';
 
 export interface RateLimitResult {
   allowed: boolean;

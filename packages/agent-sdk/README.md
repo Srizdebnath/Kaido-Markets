@@ -1,12 +1,12 @@
 # @rohankumar4179/agent-sdk
 
-The demand side of AgentMarket, packaged as code. Give an autonomous agent a wallet and this client, and it can discover, price, pay for, and call any metered endpoint on the marketplace — with budgets, retries, and fallbacks handled for it.
+The demand side of Kaido Markets, packaged as code. Give an autonomous agent a wallet and this client, and it can discover, price, pay for, and call any metered endpoint on the marketplace — with budgets, retries, and fallbacks handled for it.
 
 ```ts
-import { AgentMarketClient, createMockPaymentScheme } from '@rohankumar4179/agent-sdk';
+import { KaidoMarketsClient, createMockPaymentScheme } from '@rohankumar4179/agent-sdk';
 
-const agent = new AgentMarketClient({
-  baseUrl: 'https://api.agentmarket.dev',
+const agent = new KaidoMarketsClient({
+  baseUrl: 'https://api.kaidomarkets.dev',
   paymentScheme: createMockPaymentScheme(), // swap for createAlgorandPaymentScheme(...) in production
   budget: { perCallUsd: 0.10, dailyUsd: 5 },
 });
@@ -31,7 +31,7 @@ npm install --workspace=@rohankumar4179/agent-sdk
 
 ### 1. Pick a payment scheme
 
-**Local dev / CI** — pairs with an AgentMarket server running `PAYMENT_PROVIDER=mock`. No funds, no network calls to a facilitator:
+**Local dev / CI** — pairs with an Kaido Markets server running `PAYMENT_PROVIDER=mock`. No funds, no network calls to a facilitator:
 
 ```ts
 import { createMockPaymentScheme } from '@rohankumar4179/agent-sdk';
@@ -50,7 +50,7 @@ An unfunded account fails loudly (a `PaymentFailedError` or a thrown error from 
 ### 2. Construct the client
 
 ```ts
-const agent = new AgentMarketClient({
+const agent = new KaidoMarketsClient({
   baseUrl: 'http://localhost:4000',   // default
   paymentScheme,
   budget: { perCallUsd: 0.05, sessionUsd: 2, dailyUsd: 10 }, // any subset; all optional
@@ -80,9 +80,9 @@ const sentiment = await agent.call<{ score: number; label: string }>('/v1/sentim
 | **AI Discovery** | `agent.findCapability({ task, constraints })` states a job in natural language instead of a keyword query — ranks the catalog by relevance (TF-IDF), provider trust, and constraint fit (`maxLatencyMs`, `maxCostPerCall`), returning each result with a `score` and `reasons` explaining why it ranked where it did. See `apps/api/src/services/discovery-ranking.ts` for the documented formula. |
 | **Usage tracking** | `agent.getUsageSummary()` — total calls, total spend, broken down per resource. Local to this process; not a replacement for the server's own dashboard. |
 | **Response caching** | `cacheTtlMs` on the client, or `noCache: true` per call to bypass it. Off by default. |
-| **Multi-agent coordination** | `createSharedBudget(config)` — one `Budget`, many `AgentMarketClient`s. |
+| **Multi-agent coordination** | `createSharedBudget(config)` — one `Budget`, many `KaidoMarketsClient`s. |
 | **Context propagation** | Every client has a `sessionId` (`agent.getSessionId()`); every call gets a `callId` that stays constant across a `.call().fallback()` chain, both surfaced through the event stream. |
-| **Structured errors** | `AgentMarketError` subclasses — see below — instead of parsing message strings. |
+| **Structured errors** | `KaidoMarketsError` subclasses — see below — instead of parsing message strings. |
 
 Not implemented, on purpose: streaming (nothing in the current API streams), and full OpenTelemetry integration (the `onEvent` hook is designed to be wired into one, not a replacement for one).
 
@@ -100,7 +100,7 @@ Each resource is tried with the client's full retry policy before moving to the 
 ## Errors
 
 ```
-AgentMarketError                    (base — catch this to catch everything below)
+KaidoMarketsError                    (base — catch this to catch everything below)
 ├── BudgetExceededError             limit: 'perCall' | 'session' | 'daily'
 ├── UnsupportedPaymentSchemeError   network: string
 ├── PaymentFailedError              serverCode: string (e.g. PAYMENT_VERIFICATION_FAILED)
@@ -132,7 +132,7 @@ call:start        -> call:cost_known -> call:paying -> call:success
 ```
 
 ```ts
-const agent = new AgentMarketClient({
+const agent = new KaidoMarketsClient({
   paymentScheme,
   onEvent: (e) => tracer.addEvent(e.type, e), // e.g. wire into OpenTelemetry yourself
 });

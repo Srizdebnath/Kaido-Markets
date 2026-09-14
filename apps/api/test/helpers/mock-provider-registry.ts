@@ -1,4 +1,4 @@
-import { ApiProviderRegistry } from '@agentmarket/providers';
+import { ApiProviderRegistry } from '@kaido-markets/providers';
 
 /** Deterministic, offline provider registry for tests — no network calls. */
 export function buildMockProviderRegistry(): ApiProviderRegistry {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { loadApiConfig } from './api-config.js';
-import { SecretValidationError } from '@agentmarket/secrets';
+import { SecretValidationError } from '@kaido-markets/secrets';
 
 describe('loadApiConfig', () => {
   it('boots with only defaults — no env vars required for the mock payment provider', () => {
@@ -49,14 +49,14 @@ describe('loadApiConfig', () => {
       X402_USDC_ASSET_ID: '31566704',
       X402_CHALLENGE_TAG: 'x402-global-challenge',
       X402_BAZAAR_DISCOVERY: 'true',
-      X402_MERCHANT_NAME: 'Agent Market',
+      X402_MERCHANT_NAME: 'Kaido Markets',
       X402_MERCHANT_WEBSITE: 'https://agent.example',
       X402_MERCHANT_CATEGORIES: 'api, algorand ,x402',
     });
     expect(config.payments.challengeTag).toBe('x402-global-challenge');
     expect(config.payments.bazaarDiscovery).toBe(true);
     expect(config.payments.merchant).toEqual({
-      name: 'Agent Market',
+      name: 'Kaido Markets',
       website: 'https://agent.example',
       logo: undefined,
       categories: ['api', 'algorand', 'x402'],
@@ -147,10 +147,10 @@ describe('loadApiConfig', () => {
       X402_USDC_ASSET_ID: '12345',
       WALLET_TOKEN_SECRET: 'real-secret',
       ADMIN_API_KEY: 'real-admin-secret',
-      CORS_ORIGIN: 'https://agentmarket.example.com',
+      CORS_ORIGIN: 'https://kaidomarkets.example.com',
     });
     expect(config.security.walletTokenSecret).toBe('real-secret');
     expect(config.security.adminApiKey).toBe('real-admin-secret');
-    expect(config.server.corsOrigin).toBe('https://agentmarket.example.com');
+    expect(config.server.corsOrigin).toBe('https://kaidomarkets.example.com');
   });
 });

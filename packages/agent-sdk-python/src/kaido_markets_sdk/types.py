@@ -214,7 +214,7 @@ class CallOptions:
 
 
 @dataclass
-class AgentMarketClientConfig:
+class KaidoMarketsClientConfig:
     payment_scheme: PaymentScheme
     """How payments get signed. Use `MockPaymentScheme()` for local dev, `AlgorandPaymentScheme(...)` for real settlement."""
     base_url: str = "http://localhost:4000"

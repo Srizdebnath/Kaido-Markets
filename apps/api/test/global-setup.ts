@@ -14,7 +14,7 @@ import { PrismaClient } from '@prisma/client';
  * from a clean slate, then `prisma db push` materialises the current schema
  * into the empty database.
  */
-const DEFAULT_TEST_DATABASE_URL = 'postgresql://agentmarket:agentmarket@localhost:5432/agentmarket';
+const DEFAULT_TEST_DATABASE_URL = 'postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets';
 
 export default async function globalSetup(): Promise<void> {
   const databasePkgDir = fileURLToPath(new URL('../../../packages/database', import.meta.url));

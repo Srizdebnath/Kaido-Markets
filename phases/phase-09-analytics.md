@@ -2,7 +2,7 @@
 
 ## Context
 
-Phase 07 (Revenue Platform) gives providers a financial view. This phase gives them an operational one: real-time usage, latency, failure rate, cache hit rate, payment success rate, and top endpoints/customers, for *their own* listings specifically. AgentMarket already logs this kind of data for first-party endpoints via `ApiRequest` (`packages/database/prisma/schema.prisma`) on every metered call (see `apps/api/src/routes/register-metered-route.ts`'s `onResponse` hook) — this phase extends that same logging to be queryable per third-party listing, not a parallel system.
+Phase 07 (Revenue Platform) gives providers a financial view. This phase gives them an operational one: real-time usage, latency, failure rate, cache hit rate, payment success rate, and top endpoints/customers, for *their own* listings specifically. Kaido Markets already logs this kind of data for first-party endpoints via `ApiRequest` (`packages/database/prisma/schema.prisma`) on every metered call (see `apps/api/src/routes/register-metered-route.ts`'s `onResponse` hook) — this phase extends that same logging to be queryable per third-party listing, not a parallel system.
 
 **Same honesty note as Phase 07:** third-party listings have no real traffic until the gateway exists. Build the aggregation, API, and UI now so they're correct the instant traffic starts flowing; don't fabricate sample data to make the dashboard look populated.
 

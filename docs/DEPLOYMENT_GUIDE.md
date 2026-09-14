@@ -23,7 +23,7 @@ service configuration needed beyond the `sync: false` env vars below, which Rend
 prompt for.
 
 The datastore is **Postgres**. `render.yaml` provisions a managed
-`agentmarket-db` and wires `DATABASE_URL` into the web service via
+`kaido-markets-db` and wires `DATABASE_URL` into the web service via
 `fromDatabase`, so the Blueprint stands up both together. On every boot
 `apps/api/docker-entrypoint.sh` runs `prisma migrate deploy` against it
 before the server starts serving traffic.
@@ -62,7 +62,7 @@ X402_BAZAAR_DISCOVERY=true                 # emit discovery metadata so the endp
                                            # cataloged after its first real settlement
 # Optional Bazaar listing-card identity (else read from the endpoint domain's
 # OpenGraph / llms.txt / agent-card.json):
-X402_MERCHANT_NAME=Agent Market
+X402_MERCHANT_NAME=Kaido Markets
 X402_MERCHANT_WEBSITE=https://<your-frontend-domain>
 X402_MERCHANT_LOGO=https://<your-frontend-domain>/logo.png
 X402_MERCHANT_CATEGORIES=api,algorand,x402,crypto-intelligence
@@ -90,15 +90,15 @@ one couldn't be replayed as-is).
 
 ```bash
 docker compose --profile postgres up -d postgres
-# DATABASE_URL defaults to postgresql://agentmarket:agentmarket@localhost:5432/agentmarket
-npm run dev --workspace=@agentmarket/api      # or: npm test
+# DATABASE_URL defaults to postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets
+npm run dev --workspace=@kaido-markets/api      # or: npm test
 ```
 
 The integration suite's `apps/api/test/global-setup.ts` drops and recreates
 the `public` schema, then `prisma db push`es the current schema before the
 suite runs — every run starts clean. CI runs its own `postgres:16` service.
 
-**Production:** `render.yaml` provisions the managed `agentmarket-db` and
+**Production:** `render.yaml` provisions the managed `kaido-markets-db` and
 injects its connection string as `DATABASE_URL`. Migrations are applied by
 `apps/api/docker-entrypoint.sh` (`prisma migrate deploy`) on every boot,
 before the server accepts traffic — safe to re-run, it's a no-op when the DB

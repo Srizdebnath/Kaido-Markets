@@ -109,7 +109,7 @@ erDiagram
   anonymous-by-wallet-address or anonymous-by-IP; there's no forced signup.
 - **`RateLimit` is the durable/audit counterpart** to the live token-bucket limiter,
   which runs off `packages/cache` for low-latency reads.
-- **`AuditLog.metadata` is always redacted** via `@agentmarket/secrets#redactSecrets`
+- **`AuditLog.metadata` is always redacted** via `@kaido-markets/secrets#redactSecrets`
   before being serialized, so a bug elsewhere can't accidentally write a secret into the
   audit trail.
 - Every repository (`packages/database/src/repositories/*.ts`) is the *only* place that

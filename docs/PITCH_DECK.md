@@ -1,4 +1,4 @@
-# AgentMarket — 7-Slide Pitch Deck Prompt
+# Kaido Markets — 7-Slide Pitch Deck Prompt
 
 Ready-to-paste prompt for an AI slide generator (Gamma, Tome, Canva Magic Design,
 Beautiful.ai, etc.). Built from the actual shipped product — see [docs/PITCH_SCRIPT.md](PITCH_SCRIPT.md)
@@ -12,7 +12,7 @@ Create a 7-slide pitch deck for a hackathon/product submission.
 
 TEAM: Brotherhood
 MEMBER: Rohan Kumar (solo)
-PRODUCT: AgentMarket
+PRODUCT: Kaido Markets
 
 TONE: Confident, technical-but-clear, builder-credibility over hype. Dark theme
 with teal/blue gradient accents (brand color: cyan-to-blue gradient, black
@@ -22,7 +22,7 @@ the diagrams and numbers carry weight.
 ---
 
 SLIDE 1 — Title
-- Product name: AgentMarket
+- Product name: Kaido Markets
 - Tagline: "The Marketplace for AI Agent Commerce"
 - Subtitle: x402-native marketplace for premium AI financial-intelligence APIs,
   settled on Algorand
@@ -42,7 +42,7 @@ Headline: "AI agents can't shop the way humans do."
 
 SLIDE 3 — Solution
 Headline: "Pay-per-call intelligence, native to HTTP."
-- AgentMarket sells decision-intelligence, not raw data: instead of a price,
+- Kaido Markets sells decision-intelligence, not raw data: instead of a price,
   you get { action: BUY, confidence: 92, risk: LOW, reason: [...] }
 - Built on x402 — the HTTP 402 Payment Required status code becomes a real
   payment mechanic: agent hits an endpoint → gets 402 + price → signs a
@@ -77,7 +77,7 @@ Two-column list of what's live today:
 - Full provider marketplace: providers can list their own APIs, set pricing,
   get paid — with trust scoring, analytics, and revenue tracking built in
 - Agent-native discovery: A2A protocol agent card, MCP server, OpenAPI catalog
-  — any agent framework can find and call AgentMarket without custom integration
+  — any agent framework can find and call Kaido Markets without custom integration
 - TypeScript + Python client SDKs that handle the pay-and-retry loop automatically
 - Orchestration engine — compose multiple endpoints into one workflow call
 - Production observability: OpenTelemetry tracing, live status page, synthetic
@@ -98,7 +98,7 @@ Headline: "From TestNet proof to MainNet scale."
 - Reference docs/ROADMAP.md for the detailed version
 
 SLIDE 7 — Close / Ask
-Headline: "AgentMarket — built solo, shipped end-to-end."
+Headline: "Kaido Markets — built solo, shipped end-to-end."
 - Recap in one line: the payment and discovery layer for AI agent commerce,
   live today on real infrastructure
 - Team: Brotherhood — Rohan Kumar

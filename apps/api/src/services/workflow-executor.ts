@@ -45,7 +45,7 @@
  *   to any Fastify route. See test/workflows.integration.test.ts's
  *   "external bypass" tests for the automated proof.
  *
- * REFUNDS: AgentMarket's payment rails (packages/payments) have no
+ * REFUNDS: Kaido Markets' payment rails (packages/payments) have no
  * mechanism to reverse an already-settled real transaction — building one
  * would be "actually moving money" a second time, explicitly out of scope
  * here (same line Phase 07 drew for payouts). So a "refund" in this phase
@@ -60,7 +60,7 @@
 
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import type { AppContext } from '../context.js';
-import { buildEscrowPaymentPayload, EscrowPaymentProvider } from '@agentmarket/payments';
+import { buildEscrowPaymentPayload, EscrowPaymentProvider } from '@kaido-markets/payments';
 import { findStepReferences, resolveStepParams } from './workflow-templating.js';
 import { isKnownWorkflowStepResource, WORKFLOW_STEP_REGISTRY } from './workflow-step-registry.js';
 

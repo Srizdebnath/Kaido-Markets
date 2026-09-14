@@ -43,7 +43,7 @@ async function callDiscoverCapabilities(ctx: AppContext, args: Record<string, un
 }
 
 /**
- * AgentMarket's agent-native interface: every capability this platform
+ * Kaido Markets' agent-native interface: every capability this platform
  * sells — first-party financial intelligence and every published
  * third-party listing — reachable as MCP tools, resources, and prompts. As
  * of this phase, `tools/call` actually executes: it injects a real request
@@ -61,14 +61,14 @@ export function registerMcpRoutes(server: FastifyInstance, ctx: AppContext): voi
     const tools = [...(await buildCatalogTools(ctx)), buildDiscoverCapabilitiesTool()];
     const manifest: McpManifest = {
       mcpVersion: MCP_PROTOCOL_VERSION,
-      name: 'agentmarket',
-      description: 'AgentMarket catalog — first-party intelligence endpoints plus every published third-party listing.',
+      name: 'kaidomarkets',
+      description: 'Kaido Markets catalog — first-party intelligence endpoints plus every published third-party listing.',
       endpoint: `${originOf(request)}/mcp`,
       tools: tools.map((tool) => ({
         name: tool.name,
         description: tool.description,
         inputSchema: tool.inputSchema,
-        agentmarket: tool.agentmarket,
+        kaidomarkets: tool.kaidomarkets,
       })),
     };
     return manifest;
@@ -82,10 +82,10 @@ export function registerMcpRoutes(server: FastifyInstance, ctx: AppContext): voi
   // bleeding through a long-lived shared transport. Budget/session state
   // (Phase 11) is deliberately NOT built on top of this transport's own
   // session concept — see services/mcp-session-budget.ts's docstring for why
-  // it's keyed by the caller's own `_agentmarket.sessionId` argument instead.
+  // it's keyed by the caller's own `_kaidomarkets.sessionId` argument instead.
   function createMcpServer(callerRequest: FastifyRequest): Server {
     const mcpServer = new Server(
-      { name: 'agentmarket', version: '1.0.0' },
+      { name: 'kaidomarkets', version: '1.0.0' },
       { capabilities: { tools: {}, resources: {}, prompts: {} } },
     );
 
@@ -96,7 +96,7 @@ export function registerMcpRoutes(server: FastifyInstance, ctx: AppContext): voi
           name: tool.name,
           description: tool.description,
           inputSchema: tool.inputSchema,
-          _meta: { agentmarket: tool.agentmarket },
+          _meta: { kaidomarkets: tool.kaidomarkets },
         })),
       };
     });

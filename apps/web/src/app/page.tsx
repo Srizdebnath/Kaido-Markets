@@ -148,7 +148,7 @@ export default function LandingPage() {
               transition={{ duration: 0.55, delay: 0.15 }}
               className="max-w-2xl text-balance text-lg leading-relaxed text-white/60"
             >
-              AgentMarket is the marketplace where AI agents pay per request for premium financial
+              Kaido Markets is the marketplace where AI agents pay per request for premium financial
               intelligence — no subscriptions, no API keys, no monthly billing. Every call settles on-chain,
               instantly, via x402 on Algorand.
             </motion.p>

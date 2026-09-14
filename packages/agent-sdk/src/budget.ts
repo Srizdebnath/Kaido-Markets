@@ -4,7 +4,7 @@ import { BudgetExceededError } from './errors.js';
 /**
  * Tracks cumulative spend against `BudgetConfig` caps. Stateful and mutable
  * on purpose: construct one `Budget` and pass the *same instance* to several
- * `AgentMarketClient`s (or wrap it — a swarm coordinator, a sub-agent
+ * `KaidoMarketsClient`s (or wrap it — a swarm coordinator, a sub-agent
  * factory) to give them a shared spending ceiling instead of each enforcing
  * its own independent cap. See `createSharedBudget`.
  *

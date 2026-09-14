@@ -2,9 +2,9 @@
 
 import pytest
 
-from agentmarket_sdk.errors import HttpError, PaymentFailedError
-from agentmarket_sdk.retry import is_retryable, with_retry
-from agentmarket_sdk.types import RetryConfig
+from kaido_markets_sdk.errors import HttpError, PaymentFailedError
+from kaido_markets_sdk.retry import is_retryable, with_retry
+from kaido_markets_sdk.types import RetryConfig
 
 
 class TestIsRetryable:

@@ -15,7 +15,7 @@ def _utc_date_key(now: _dt.datetime | None = None) -> str:
 class Budget:
     """Tracks cumulative spend against `BudgetConfig` caps. Stateful and
     mutable on purpose: construct one `Budget` and pass the *same instance*
-    to several `AgentMarketClient`s (see `create_shared_budget`) to give
+    to several `KaidoMarketsClient`s (see `create_shared_budget`) to give
     them a shared spending ceiling instead of each enforcing its own
     independent cap."""
 

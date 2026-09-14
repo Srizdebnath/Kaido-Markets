@@ -1,4 +1,4 @@
-import { encodePaymentPayload } from '@agentmarket/payments';
+import { encodePaymentPayload } from '@kaido-markets/payments';
 import { trace } from '@opentelemetry/api';
 import { InMemorySpanExporter, SimpleSpanProcessor, type ReadableSpan } from '@opentelemetry/sdk-trace-base';
 import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';

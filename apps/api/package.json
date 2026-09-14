@@ -1,5 +1,5 @@
 {
-  "name": "@agentmarket/api",
+  "name": "@kaido-markets/api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -14,13 +14,13 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@agentmarket/cache": "*",
-    "@agentmarket/config": "*",
-    "@agentmarket/database": "*",
-    "@agentmarket/intelligence-engine": "*",
-    "@agentmarket/payments": "*",
-    "@agentmarket/providers": "*",
-    "@agentmarket/secrets": "*",
+    "@kaido-markets/cache": "*",
+    "@kaido-markets/config": "*",
+    "@kaido-markets/database": "*",
+    "@kaido-markets/intelligence-engine": "*",
+    "@kaido-markets/payments": "*",
+    "@kaido-markets/providers": "*",
+    "@kaido-markets/secrets": "*",
     "@rohankumar4179/shared-types": "*",
     "@asteasolutions/zod-to-openapi": "^7.3.4",
     "@fastify/cors": "^10.0.1",

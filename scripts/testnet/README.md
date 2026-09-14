@@ -38,7 +38,7 @@ node scripts/testnet/opt-in-usdc.mjs payer mainnet
    `X402_PAY_TO_ADDRESS=<merchant address>`, `ALGORAND_NETWORK=testnet|mainnet`,
    `X402_USDC_ASSET_ID=10458941|31566704`, and `X402_FEE_PAYER_ADDRESS=<extra.feePayer
    from GET {facilitator}/supported for that network>`.
-2. Start the API: `npm run dev --workspace=@agentmarket/api`
+2. Start the API: `npm run dev --workspace=@kaido-markets/api`
 3. Run the proof:
 
    ```bash

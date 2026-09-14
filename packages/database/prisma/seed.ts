@@ -111,7 +111,7 @@ async function main() {
 
   // One demo third-party provider + published listing, so a freshly-seeded
   // dev server shows the control-plane/publishing pipeline actually working
-  // end to end, not just AgentMarket's own first-party endpoints.
+  // end to end, not just Kaido Markets' own first-party endpoints.
   const demoProvider = await prisma.providerAccount.upsert({
     where: { email: 'devrel@ledgerwatch.example' },
     update: {},

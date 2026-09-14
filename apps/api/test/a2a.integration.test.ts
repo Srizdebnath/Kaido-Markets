@@ -1,4 +1,4 @@
-import { encodePaymentPayload } from '@agentmarket/payments';
+import { encodePaymentPayload } from '@kaido-markets/payments';
 import { A2AAgentCardSchema, A2AJsonRpcResponseSchema, A2ATaskSchema } from '@rohankumar4179/shared-types';
 import type { FastifyInstance } from 'fastify';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -48,9 +48,9 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
       const skillIds = card.skills.map((s) => s.id);
       expect(skillIds).toEqual(
         expect.arrayContaining([
-          'agentmarket__get_v1_analyze',
-          'agentmarket__get_v1_sentiment',
-          'agentmarket__post_v1_portfolio_health',
+          'kaidomarkets__get_v1_analyze',
+          'kaidomarkets__get_v1_sentiment',
+          'kaidomarkets__post_v1_portfolio_health',
         ]),
       );
     });
@@ -84,7 +84,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'no-pay-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'BTC' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         }),
       ]);
@@ -104,7 +104,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'bad-pay-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'BTC' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': 'not-a-real-payload' },
@@ -122,7 +122,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'bad-input-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'not-a-valid-symbol!!' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': paymentHeaderFor('should-not-be-charged', 'UNCHARGED_WALLET') },
@@ -147,7 +147,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
               messageId: 'parity-1',
               role: 'user',
               parts: [{ kind: 'data', data: { symbol: 'BTC' } }],
-              metadata: { skillId: 'agentmarket__get_v1_analyze' },
+              metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
             },
           },
           { 'x-payment': paymentHeaderFor('a2a-parity-a2a', 'A2A_PARITY_WALLET_2') },
@@ -176,7 +176,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'poll-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'ETH' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': header },
@@ -200,7 +200,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'ledger-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'SOL' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': header },
@@ -217,7 +217,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'ledger-1-retry',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'SOL' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': header },
@@ -236,7 +236,7 @@ describe('A2A (Agent-to-Agent) protocol (Phase 5)', () => {
             messageId: 'cancel-1',
             role: 'user',
             parts: [{ kind: 'data', data: { symbol: 'BTC' } }],
-            metadata: { skillId: 'agentmarket__get_v1_analyze' },
+            metadata: { skillId: 'kaidomarkets__get_v1_analyze' },
           },
         },
         { 'x-payment': header },

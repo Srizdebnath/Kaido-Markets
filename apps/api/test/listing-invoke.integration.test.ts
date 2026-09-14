@@ -1,4 +1,4 @@
-import { encodePaymentPayload } from '@agentmarket/payments';
+import { encodePaymentPayload } from '@kaido-markets/payments';
 import type { FastifyInstance } from 'fastify';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildServer } from '../src/server.js';

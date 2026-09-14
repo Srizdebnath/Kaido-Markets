@@ -35,7 +35,7 @@ export const McpManifestToolSchema = z.object({
   name: z.string(),
   description: z.string(),
   inputSchema: z.record(z.string(), z.unknown()),
-  agentmarket: McpToolMetadataSchema,
+  kaidomarkets: McpToolMetadataSchema,
 });
 export type McpManifestTool = z.infer<typeof McpManifestToolSchema>;
 

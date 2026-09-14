@@ -1,9 +1,9 @@
-import type { ICache } from '@agentmarket/cache';
-import type { ApiConfig } from '@agentmarket/config';
-import type { Database } from '@agentmarket/database';
-import type { IntelligenceEngine } from '@agentmarket/intelligence-engine';
-import type { X402PaymentService } from '@agentmarket/payments';
-import type { ApiProviderRegistry } from '@agentmarket/providers';
+import type { ICache } from '@kaido-markets/cache';
+import type { ApiConfig } from '@kaido-markets/config';
+import type { Database } from '@kaido-markets/database';
+import type { IntelligenceEngine } from '@kaido-markets/intelligence-engine';
+import type { X402PaymentService } from '@kaido-markets/payments';
+import type { ApiProviderRegistry } from '@kaido-markets/providers';
 import type { McpSessionBudgetStore } from './services/mcp-session-budget.js';
 import type { RateLimiterService } from './services/rate-limiter.js';
 

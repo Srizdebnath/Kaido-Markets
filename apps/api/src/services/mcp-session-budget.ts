@@ -1,4 +1,4 @@
-import type { ICache } from '@agentmarket/cache';
+import type { ICache } from '@kaido-markets/cache';
 import { Budget, type BudgetCheckResult, type BudgetConfig, type BudgetState } from '@rohankumar4179/shared-types';
 
 const SESSION_TTL_SECONDS = 60 * 60;
@@ -19,7 +19,7 @@ function keyFor(sessionId: string): string {
  * server-held state this phase introduces, everything else reuses existing
  * infra untouched.
  *
- * Sessions are the MCP tool-call arguments' own `_agentmarket.sessionId` (an
+ * Sessions are the MCP tool-call arguments' own `_kaidomarkets.sessionId` (an
  * opaque, client-chosen string — no relationship to the MCP transport's own
  * session concept, which stays untouched/stateless — see mcp.route.ts), NOT
  * a database row. State lives in the shared `ICache` (MemoryCache by

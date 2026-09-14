@@ -120,7 +120,7 @@ still takes no dependency on it (`ioredis` is a devDependency there, test-only).
 locally via `docker compose up -d redis`, always-on in CI via a new `redis`
 service in `ci.yml`). Verified end-to-end against a live server + real Redis
 container: cache miss → hit round-trips correctly, and the rate limiter's
-token-bucket state lands in Redis too (`agentmarket:ratelimit:*`), which is
+token-bucket state lands in Redis too (`kaidomarkets:ratelimit:*`), which is
 the actual point — shared state across instances.
 
 ## Suggested order

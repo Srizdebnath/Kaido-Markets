@@ -1,4 +1,4 @@
-import { createCache } from '@agentmarket/cache';
+import { createCache } from '@kaido-markets/cache';
 import type { ApiListing } from '@prisma/client';
 import { AppError } from '@rohankumar4179/shared-types';
 import { describe, expect, it, vi } from 'vitest';

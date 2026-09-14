@@ -1,4 +1,4 @@
-import { createPrismaClient, Database } from '@agentmarket/database';
+import { createPrismaClient, Database } from '@kaido-markets/database';
 import { describe, expect, it } from 'vitest';
 import { buildServer } from '../src/server.js';
 import { checkOverallHealth } from '../src/observability/health-checks.js';

@@ -1,4 +1,4 @@
-import { createCache } from '@agentmarket/cache';
+import { createCache } from '@kaido-markets/cache';
 import { describe, expect, it } from 'vitest';
 import { McpSessionBudgetStore } from './mcp-session-budget.js';
 

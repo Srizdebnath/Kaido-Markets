@@ -155,7 +155,7 @@ export default function MarketplacePage() {
       <div className="flex flex-col gap-2">
         <h1 className="font-display text-4xl font-bold tracking-tight text-foreground">Marketplace</h1>
         <p className="max-w-2xl text-muted">
-          Every metered endpoint AgentMarket offers, read live from the same registry the API serves requests
+          Every metered endpoint Kaido Markets offers, read live from the same registry the API serves requests
           from.
         </p>
       </div>

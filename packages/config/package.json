@@ -1,5 +1,5 @@
 {
-  "name": "@agentmarket/config",
+  "name": "@kaido-markets/config",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -20,7 +20,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@agentmarket/secrets": "*",
+    "@kaido-markets/secrets": "*",
     "zod": "^3.24.1"
   }
 }

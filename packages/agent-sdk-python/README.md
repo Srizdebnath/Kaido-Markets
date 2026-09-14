@@ -1,21 +1,21 @@
-# agentmarket-sdk
+# kaido-markets-sdk
 
-The demand side of AgentMarket, packaged as Python. Give an autonomous agent a wallet and this client, and it can discover, price, pay for, and call any metered endpoint on the marketplace — with budgets, retries, and fallbacks handled for it.
+The demand side of Kaido Markets, packaged as Python. Give an autonomous agent a wallet and this client, and it can discover, price, pay for, and call any metered endpoint on the marketplace — with budgets, retries, and fallbacks handled for it.
 
 This is the Python counterpart to `@rohankumar4179/agent-sdk` (TypeScript) — same feature set and semantics, idiomatic to Python rather than a line-by-line port. See "Decisions" below for where the two intentionally differ.
 
 ## Async-first
 
-**This SDK is async-first.** `AgentMarketClient` is built on `httpx.AsyncClient` and every network-touching method is a coroutine. A thin `SyncAgentMarketClient` wrapper is provided for scripts and notebooks that aren't already inside an event loop — it runs the same async client on a dedicated background event loop (not a fresh `asyncio.run()` per call) so budget/cache/usage state persists across calls.
+**This SDK is async-first.** `KaidoMarketsClient` is built on `httpx.AsyncClient` and every network-touching method is a coroutine. A thin `SyncKaidoMarketsClient` wrapper is provided for scripts and notebooks that aren't already inside an event loop — it runs the same async client on a dedicated background event loop (not a fresh `asyncio.run()` per call) so budget/cache/usage state persists across calls.
 
 Async-first (with a sync convenience wrapper) rather than sync-first mirrors `openai-python`/`httpx`'s own default, and matches where the agent-framework ecosystem this SDK targets (LangChain, LlamaIndex, CrewAI) is heading: mostly async already, or async-compatible.
 
 ```python
 import asyncio
-from agentmarket_sdk import AgentMarketClient, MockPaymentScheme
+from kaido_markets_sdk import KaidoMarketsClient, MockPaymentScheme
 
 async def main():
-    agent = AgentMarketClient(
+    agent = KaidoMarketsClient(
         payment_scheme=MockPaymentScheme(),  # swap for AlgorandPaymentScheme(...) in production
         budget={"per_call_usd": 0.10, "daily_usd": 5},
     )
@@ -29,9 +29,9 @@ asyncio.run(main())
 Sync convenience wrapper — fallbacks are an explicit list here rather than a chained `.fallback(...)`, since sync code has no equivalent of `await`'s ability to defer execution:
 
 ```python
-from agentmarket_sdk import SyncAgentMarketClient, MockPaymentScheme
+from kaido_markets_sdk import SyncKaidoMarketsClient, MockPaymentScheme
 
-with SyncAgentMarketClient(payment_scheme=MockPaymentScheme()) as agent:
+with SyncKaidoMarketsClient(payment_scheme=MockPaymentScheme()) as agent:
     risk = agent.call("/v1/risk-analysis", {"symbol": "BTC"}, fallbacks=[("/v1/portfolio-health", None)])
 ```
 
@@ -55,20 +55,20 @@ pip install -e "packages/agent-sdk-python[avm]"
 
 ### 1. Pick a payment scheme
 
-**Local dev / CI** — pairs with an AgentMarket server running `PAYMENT_PROVIDER=mock`:
+**Local dev / CI** — pairs with an Kaido Markets server running `PAYMENT_PROVIDER=mock`:
 
 ```python
-from agentmarket_sdk import MockPaymentScheme
+from kaido_markets_sdk import MockPaymentScheme
 payment_scheme = MockPaymentScheme()
 ```
 
 **Real settlement** — signs and pays with an actual Algorand account. Needs network access to an Algod node (defaults to AlgoNode's public endpoint) and a funded TestNet/MainNet account. Delegates transaction construction to [`x402-avm`](https://pypi.org/project/x402-avm/) (GoPlausible's own Python SDK for this exact facilitator) rather than hand-rolling Algorand atomic-group signing — the same approach the TypeScript SDK takes with `@x402-avm/avm`:
 
 ```python
-# Requires the optional `avm` extra (pip install agentmarket-sdk[avm]) —
+# Requires the optional `avm` extra (pip install kaido-markets-sdk[avm]) —
 # not imported from the package root so the base install never needs
 # py-algorand-sdk.
-from agentmarket_sdk.payment.algorand_scheme import AlgorandPaymentScheme
+from kaido_markets_sdk.payment.algorand_scheme import AlgorandPaymentScheme
 payment_scheme = AlgorandPaymentScheme(mnemonic=os.environ["AGENT_MNEMONIC"])
 ```
 
@@ -77,7 +77,7 @@ An unfunded account fails loudly rather than silently — there's no dry-run mod
 ### 2. Construct the client
 
 ```python
-agent = AgentMarketClient(
+agent = KaidoMarketsClient(
     base_url="http://localhost:4000",  # default
     payment_scheme=payment_scheme,
     budget={"per_call_usd": 0.05, "session_usd": 2, "daily_usd": 10},  # any subset; all optional
@@ -107,7 +107,7 @@ sentiment = await agent.call("/v1/sentiment")
 | **Usage tracking** | `agent.get_usage_summary()` — total calls, total spend, broken down per resource. |
 | **Response caching** | `cache_ttl_ms` on the client, or `no_cache=True` per call. |
 | **Multi-agent coordination** | `create_shared_budget(...)` — one `Budget`, many clients. |
-| **Structured errors** | `AgentMarketError` subclasses instead of parsing message strings. |
+| **Structured errors** | `KaidoMarketsError` subclasses instead of parsing message strings. |
 
 ## Fallbacks
 
@@ -124,7 +124,7 @@ If every resource fails, the rejection is an `AllProvidersFailedError` carrying 
 ## Errors
 
 ```
-AgentMarketError                    (base — catch this to catch everything below)
+KaidoMarketsError                    (base — catch this to catch everything below)
 ├── BudgetExceededError             .limit: "per_call" | "session" | "daily"
 ├── UnsupportedPaymentSchemeError   .network: str
 ├── PaymentFailedError              .server_code: str
@@ -158,4 +158,4 @@ pip install -e ".[dev]"
 pytest
 ```
 
-Tests run against `agentmarket_sdk.test_helpers.fake_server`, an `httpx.MockTransport`-backed fake implementing the same 402/`X-PAYMENT` contract the real server does — no live server needed. It was also verified once against a real throwaway AgentMarket server instance (mock payment mode) during development, the same way the TypeScript SDK was verified.
+Tests run against `kaido_markets_sdk.test_helpers.fake_server`, an `httpx.MockTransport`-backed fake implementing the same 402/`X-PAYMENT` contract the real server does — no live server needed. It was also verified once against a real throwaway Kaido Markets server instance (mock payment mode) during development, the same way the TypeScript SDK was verified.

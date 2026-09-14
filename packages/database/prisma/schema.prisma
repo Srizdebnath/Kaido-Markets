@@ -75,7 +75,7 @@ model Payment {
   cachedResponse   CachedResponse? @relation(fields: [cachedResponseId], references: [id])
   /// Set only when this payment settled a call against a published
   /// third-party listing (see ApiListing) — null for first-party traffic,
-  /// which isn't "provider revenue," it's AgentMarket's own.
+  /// which isn't "provider revenue," it's Kaido Markets' own.
   listingId        String?
   listing          ApiListing? @relation(fields: [listingId], references: [id])
   createdAt        DateTime  @default(now())
@@ -166,7 +166,7 @@ model Usage {
 }
 
 /// Append-only security/audit trail. `metadata` is redacted (via
-/// @agentmarket/secrets#redactSecrets) before it is ever serialized here.
+/// @kaido-markets/secrets#redactSecrets) before it is ever serialized here.
 model AuditLog {
   id        String   @id @default(cuid())
   actorType String

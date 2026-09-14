@@ -2,9 +2,9 @@
 
 ## Context
 
-The platform strategy's redesign of the original "workflow builder" brief is explicit: **build the orchestration engine as an API/SDK primitive first, with any visual/no-code builder as a thin UI layer on top of it later** — because the actual buyer chaining multiple paid calls together is usually an agent, and agents don't drag boxes. This phase is that primitive: a stateless pipeline executor that runs several of AgentMarket's own metered endpoints in sequence, with a single upfront payment escrowed and released per completed step.
+The platform strategy's redesign of the original "workflow builder" brief is explicit: **build the orchestration engine as an API/SDK primitive first, with any visual/no-code builder as a thin UI layer on top of it later** — because the actual buyer chaining multiple paid calls together is usually an agent, and agents don't drag boxes. This phase is that primitive: a stateless pipeline executor that runs several of Kaido Markets' own metered endpoints in sequence, with a single upfront payment escrowed and released per completed step.
 
-The example from the strategy doc: OCR → Translate → Summarize → Risk Analysis → Email, each step metered, with a partial refund if a step fails partway through. AgentMarket doesn't have OCR/Translate/Email endpoints today — use the real first-party endpoints that exist (`sentiment`, `risk-analysis`, `analyze`, `market-summary`, etc., see `apps/api/src/routes/*.route.ts`) for the actual implementation and tests; adapt the example conceptually, don't block on building unrelated new endpoints just to match the doc's illustration literally.
+The example from the strategy doc: OCR → Translate → Summarize → Risk Analysis → Email, each step metered, with a partial refund if a step fails partway through. Kaido Markets doesn't have OCR/Translate/Email endpoints today — use the real first-party endpoints that exist (`sentiment`, `risk-analysis`, `analyze`, `market-summary`, etc., see `apps/api/src/routes/*.route.ts`) for the actual implementation and tests; adapt the example conceptually, don't block on building unrelated new endpoints just to match the doc's illustration literally.
 
 ## Goal
 
@@ -27,7 +27,7 @@ The example from the strategy doc: OCR → Translate → Summarize → Risk Anal
 ## Decisions to make explicit before coding
 
 - **The internal settlement mechanism (point 2 above) is the load-bearing design decision of this entire phase.** Do not start wiring routes before this is settled and written down — an insecure or accidentally-externally-reachable internal settlement path would be a real payment-security bug, not a cosmetic one.
-- **Whether refunds are a real mechanism or a ledger adjustment.** If AgentMarket has no way to send money back on the current rails, "refund" may need to mean "credit toward a future call" or "reduce what was actually settled before final settlement" rather than reversing an already-completed on-chain transaction — figure out which is actually possible given the existing `packages/payments` capabilities before promising the diagram's literal behavior.
+- **Whether refunds are a real mechanism or a ledger adjustment.** If Kaido Markets has no way to send money back on the current rails, "refund" may need to mean "credit toward a future call" or "reduce what was actually settled before final settlement" rather than reversing an already-completed on-chain transaction — figure out which is actually possible given the existing `packages/payments` capabilities before promising the diagram's literal behavior.
 
 ## Acceptance criteria
 

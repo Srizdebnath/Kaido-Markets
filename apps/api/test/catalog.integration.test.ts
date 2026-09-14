@@ -1,4 +1,4 @@
-import { encodePaymentPayload } from '@agentmarket/payments';
+import { encodePaymentPayload } from '@kaido-markets/payments';
 import { McpManifestSchema } from '@rohankumar4179/shared-types';
 import { ListToolsResultSchema } from '@modelcontextprotocol/sdk/types.js';
 import type { FastifyInstance } from 'fastify';
@@ -221,7 +221,7 @@ describe('protocol-native catalog (Phase 4)', () => {
       const manifest = McpManifestSchema.parse(res.json());
       const tool = manifest.tools.find((t) => t.name === `${slug}__getwalletrisk`);
       expect(tool).toBeDefined();
-      expect(tool?.agentmarket).toEqual({
+      expect(tool?.kaidomarkets).toEqual({
         priceUsd: 0.02,
         resource: 'https://api.ledgerwatch.test/v1/wallet-risk',
         method: 'GET',
@@ -229,9 +229,9 @@ describe('protocol-native catalog (Phase 4)', () => {
         slug,
         operationId: 'getWalletRisk',
       });
-      // `_agentmarket` is the reserved control block every tool carries — see mcp-catalog.ts.
+      // `_kaidomarkets` is the reserved control block every tool carries — see mcp-catalog.ts.
       expect(Object.keys((tool?.inputSchema as { properties: object }).properties)).toEqual(
-        expect.arrayContaining(['address', '_agentmarket']),
+        expect.arrayContaining(['address', '_kaidomarkets']),
       );
       expect(tool?.inputSchema.required).toEqual(['address']);
     });
@@ -284,7 +284,7 @@ describe('protocol-native catalog (Phase 4)', () => {
     it('is not present in the MCP manifest', async () => {
       const res = await server.inject({ method: 'GET', url: '/.well-known/mcp.json' });
       const manifest = McpManifestSchema.parse(res.json());
-      expect(manifest.tools.some((t) => t.agentmarket.slug === slug)).toBe(false);
+      expect(manifest.tools.some((t) => t.kaidomarkets.slug === slug)).toBe(false);
     });
   });
 
@@ -334,9 +334,9 @@ describe('protocol-native catalog (Phase 4)', () => {
       const manifest = McpManifestSchema.parse(res.json());
       // Excludes discover_capabilities — a built-in MCP tool with no OpenAPI
       // operation behind it (see mcp-catalog.ts) — from the 8 real endpoints.
-      const firstPartyTools = manifest.tools.filter((t) => !t.agentmarket.isThirdParty && t.name !== 'discover_capabilities');
+      const firstPartyTools = manifest.tools.filter((t) => !t.kaidomarkets.isThirdParty && t.name !== 'discover_capabilities');
       expect(firstPartyTools.length).toBe(8);
-      expect(firstPartyTools.map((t) => t.agentmarket.resource)).toEqual(
+      expect(firstPartyTools.map((t) => t.kaidomarkets.resource)).toEqual(
         expect.arrayContaining(['/v1/analyze', '/v1/portfolio-health']),
       );
     });
@@ -349,7 +349,7 @@ describe('protocol-native catalog (Phase 4)', () => {
         params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'vitest', version: '1.0' } },
       });
       expect(statusCode).toBe(200);
-      expect(message.result).toMatchObject({ serverInfo: { name: 'agentmarket' } });
+      expect(message.result).toMatchObject({ serverInfo: { name: 'kaidomarkets' } });
     });
 
     it('serves tools/list through the real MCP protocol, validated against the SDK\'s own ListToolsResult type', async () => {
@@ -361,7 +361,7 @@ describe('protocol-native catalog (Phase 4)', () => {
       // schema for ListToolsResult.
       const result = ListToolsResultSchema.parse(message.result);
       expect(result.tools.length).toBeGreaterThanOrEqual(8);
-      expect(result.tools.map((t) => t.name)).toContain('agentmarket__get_v1_analyze');
+      expect(result.tools.map((t) => t.name)).toContain('kaidomarkets__get_v1_analyze');
     });
 
     it('returns a helpful JSON-RPC error for an unknown tool call', async () => {
@@ -379,7 +379,7 @@ describe('protocol-native catalog (Phase 4)', () => {
         jsonrpc: '2.0',
         id: 4,
         method: 'tools/call',
-        params: { name: 'agentmarket__get_v1_analyze', arguments: { symbol: 'BTC' } },
+        params: { name: 'kaidomarkets__get_v1_analyze', arguments: { symbol: 'BTC' } },
       });
       const result = message.result as { isError: boolean; structuredContent: { code: string; paymentRequired: { accepts: unknown[] } } };
       expect(result.isError).toBe(true);
@@ -393,8 +393,8 @@ describe('protocol-native catalog (Phase 4)', () => {
         id: 5,
         method: 'tools/call',
         params: {
-          name: 'agentmarket__get_v1_analyze',
-          arguments: { symbol: 'BTC', _agentmarket: { payment: payHeader('mcp-analyze-1') } },
+          name: 'kaidomarkets__get_v1_analyze',
+          arguments: { symbol: 'BTC', _kaidomarkets: { payment: payHeader('mcp-analyze-1') } },
         },
       });
       const result = paid.message.result as { isError: boolean; structuredContent: { symbol: string } };
@@ -408,8 +408,8 @@ describe('protocol-native catalog (Phase 4)', () => {
         id: 6,
         method: 'tools/call',
         params: {
-          name: 'agentmarket__get_v1_analyze',
-          arguments: { symbol: 'BTC', _agentmarket: { payment: payHeader('mcp-analyze-1') } },
+          name: 'kaidomarkets__get_v1_analyze',
+          arguments: { symbol: 'BTC', _kaidomarkets: { payment: payHeader('mcp-analyze-1') } },
         },
       });
       expect((replay.message.result as { isError: boolean }).isError).toBe(false);
@@ -421,8 +421,8 @@ describe('protocol-native catalog (Phase 4)', () => {
         id: 7,
         method: 'tools/call',
         params: {
-          name: 'agentmarket__get_v1_analyze',
-          arguments: { symbol: 'BTC', _agentmarket: { maxCostUsd: 0.001 } },
+          name: 'kaidomarkets__get_v1_analyze',
+          arguments: { symbol: 'BTC', _kaidomarkets: { maxCostUsd: 0.001 } },
         },
       });
       const result = message.result as { isError: boolean; structuredContent: { code: string } };
@@ -438,8 +438,8 @@ describe('protocol-native catalog (Phase 4)', () => {
         id: 8,
         method: 'tools/call',
         params: {
-          name: 'agentmarket__get_v1_analyze',
-          arguments: { symbol: 'ETH', _agentmarket: { sessionId, maxSessionSpendUsd: 0.06, payment: payHeader('mcp-session-1') } },
+          name: 'kaidomarkets__get_v1_analyze',
+          arguments: { symbol: 'ETH', _kaidomarkets: { sessionId, maxSessionSpendUsd: 0.06, payment: payHeader('mcp-session-1') } },
         },
       });
       expect((first.message.result as { isError: boolean }).isError).toBe(false);
@@ -449,8 +449,8 @@ describe('protocol-native catalog (Phase 4)', () => {
         id: 9,
         method: 'tools/call',
         params: {
-          name: 'agentmarket__get_v1_analyze',
-          arguments: { symbol: 'ETH', _agentmarket: { sessionId, payment: payHeader('mcp-session-2') } },
+          name: 'kaidomarkets__get_v1_analyze',
+          arguments: { symbol: 'ETH', _kaidomarkets: { sessionId, payment: payHeader('mcp-session-2') } },
         },
       });
       const result = second.message.result as { isError: boolean; structuredContent: { code: string } };

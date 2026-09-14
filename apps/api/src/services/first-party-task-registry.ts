@@ -25,7 +25,7 @@ export interface FirstPartyTaskHandler {
  * `message/send` through this registry instead of re-implementing any of
  * the 8 endpoints' business logic a second time. Keyed by `resource` so it
  * composes directly with Phase 4's `buildCatalogTools()`, which already
- * carries `agentmarket.resource` per tool/skill.
+ * carries `kaidomarkets.resource` per tool/skill.
  */
 const REGISTRY: Record<string, FirstPartyTaskHandler> = {
   '/v1/analyze': {

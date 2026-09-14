@@ -29,7 +29,7 @@ function resolveSigner(config: AlgorandPaymentSchemeConfig): ClientAvmSigner {
  * transfer plus the facilitator's fee-payer leg) is delegated entirely to
  * `@x402-avm/avm`'s `ExactAvmScheme` — the reference implementation for
  * this exact wire format — so this class only adapts field names between
- * AgentMarket's `PaymentRequirement` and the shape that library expects;
+ * Kaido Markets' `PaymentRequirement` and the shape that library expects;
  * it does not reimplement any transaction-signing logic itself.
  *
  * Needs network access to an Algod node (AlgoNode's public endpoint by

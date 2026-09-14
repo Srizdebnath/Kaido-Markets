@@ -28,18 +28,18 @@ const PAYMENT_REQUIREMENTS_EXAMPLE = {
       resource: '/v1/analyze',
       description: 'Access to /v1/analyze',
       mimeType: 'application/json',
-      payTo: 'AGENTMARKET_TESTNET_ADDRESS',
+      payTo: 'KAIDO_MARKETS_TESTNET_ADDRESS',
       asset: '10458941',
       maxTimeoutSeconds: 60,
     },
   ],
 };
 
-const QUICKSTART_SNIPPET = `curl "https://api.agentmarket.dev/v1/analyze?symbol=BTC"
+const QUICKSTART_SNIPPET = `curl "https://api.kaidomarkets.dev/v1/analyze?symbol=BTC"
 # -> 402 Payment Required, see accepts[] for terms
 
 # sign an x402 payment, then retry with the header:
-curl "https://api.agentmarket.dev/v1/analyze?symbol=BTC" \\
+curl "https://api.kaidomarkets.dev/v1/analyze?symbol=BTC" \\
   -H "X-PAYMENT: <signed-payment>"`;
 
 const QUICKSTART_STEPS = [
@@ -113,10 +113,10 @@ export default function DocsPage() {
             Documentation
           </Badge>
           <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            AgentMarket Docs
+            Kaido Markets Docs
           </h1>
           <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">
-            Everything you need to call, pay for, and integrate AgentMarket&apos;s x402-native intelligence
+            Everything you need to call, pay for, and integrate Kaido Markets&apos;s x402-native intelligence
             APIs — whether you&apos;re sending your first request or wiring an autonomous agent.
           </p>
 
@@ -254,7 +254,7 @@ export default function DocsPage() {
             <div className="mt-5 space-y-3 text-sm leading-relaxed text-muted">
               <p>
                 <strong className="font-medium text-foreground">Credentials never leave the backend.</strong> The
-                browser only ever talks to AgentMarket&apos;s API — upstream provider keys are never exposed.
+                browser only ever talks to Kaido Markets&apos;s API — upstream provider keys are never exposed.
               </p>
               <p>
                 <strong className="font-medium text-foreground">Idempotent by design.</strong> Every payment

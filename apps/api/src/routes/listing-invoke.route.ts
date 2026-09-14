@@ -56,7 +56,7 @@ export async function listingInvokeHandler(
  * it invokes first-party ones: `server.inject` into a real, x402-metered
  * REST route, never a second payment/execution path. This route is equally
  * usable directly over HTTP by any caller, MCP or not — it's a first-class
- * AgentMarket capability, not MCP-only plumbing.
+ * Kaido Markets capability, not MCP-only plumbing.
  *
  * Priced per-listing (`listing.priceUsd`), which isn't known until `:slug`
  * is read from the URL — see register-metered-route.ts's `resolveMeta`.

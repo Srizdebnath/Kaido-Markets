@@ -52,7 +52,7 @@
 ## Running things individually
 
 ```bash
-npm run dev --workspace=@agentmarket/api     # backend only
-npm run dev --workspace=@agentmarket/web     # frontend only
-npm test --workspace=@agentmarket/intelligence-engine
+npm run dev --workspace=@kaido-markets/api     # backend only
+npm run dev --workspace=@kaido-markets/web     # frontend only
+npm test --workspace=@kaido-markets/intelligence-engine
 ```

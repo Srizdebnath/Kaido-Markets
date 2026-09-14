@@ -12,7 +12,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mon
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'AgentMarket — The Marketplace for AI Agent Commerce',
+  title: 'Kaido Markets — The Marketplace for AI Agent Commerce',
   description:
     'Pay-per-request decision intelligence APIs for AI agents and trading bots, settled on Algorand via x402.',
 };
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 // light/dark flash. Purely presentational — no app state depends on this.
 const THEME_INIT_SCRIPT = `
 try {
-  var t = localStorage.getItem('agentmarket:theme');
+  var t = localStorage.getItem('kaidomarkets:theme');
   if (t === 'light') document.documentElement.dataset.theme = 'light';
   else document.documentElement.dataset.theme = 'dark';
 } catch (e) {}

@@ -1,4 +1,4 @@
-import { createSecretManager } from '@agentmarket/secrets';
+import { createSecretManager } from '@kaido-markets/secrets';
 import { z } from 'zod';
 
 /**
@@ -24,7 +24,7 @@ const ApiEnvSchema = z
 
     // Postgres. Local dev: `docker compose --profile postgres up -d` then use
     // the default below; production must set a real connection string.
-    DATABASE_URL: z.string().default('postgresql://agentmarket:agentmarket@localhost:5432/agentmarket'),
+    DATABASE_URL: z.string().default('postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets'),
 
     CACHE_DRIVER: z.enum(['memory', 'redis']).default('memory'),
     REDIS_URL: z.string().optional(),

@@ -28,9 +28,9 @@ export function NavBar() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3.5">
         <Link href="/" className="flex items-center gap-2.5 font-display text-[17px] font-bold tracking-tight text-foreground">
           <span className="flex h-7 w-7 items-center justify-center overflow-hidden rounded-md shadow-glow-primary">
-            <Image src="/images/logo-mark.png" alt="AgentMarket logo" width={28} height={28} priority />
+            <Image src="/images/logo-mark.png" alt="Kaido Markets logo" width={28} height={28} priority />
           </span>
-          AgentMarket
+          Kaido Markets
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">

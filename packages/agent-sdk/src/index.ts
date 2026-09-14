@@ -1,7 +1,7 @@
-export { AgentMarketClient, PendingCall } from './client.js';
+export { KaidoMarketsClient, PendingCall } from './client.js';
 export { Budget, createSharedBudget } from './budget.js';
 export {
-  AgentMarketError,
+  KaidoMarketsError,
   AllProvidersFailedError,
   BudgetExceededError,
   HttpError,
@@ -18,7 +18,7 @@ export { UsageTracker } from './usage-tracker.js';
 export type {
   AgentEvent,
   AgentEventListener,
-  AgentMarketClientConfig,
+  KaidoMarketsClientConfig,
   BudgetConfig,
   CallOptions,
   CallParams,

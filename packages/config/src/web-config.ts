@@ -1,4 +1,4 @@
-import { createSecretManager } from '@agentmarket/secrets';
+import { createSecretManager } from '@kaido-markets/secrets';
 import { z } from 'zod';
 
 // apps/web only ever reads NEXT_PUBLIC_* values, which Next.js inlines into

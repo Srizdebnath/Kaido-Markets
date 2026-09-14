@@ -5,7 +5,7 @@
 ```mermaid
 sequenceDiagram
     participant Agent as AI Agent / Client
-    participant API as AgentMarket API
+    participant API as Kaido Markets API
     participant DB as Database
     participant Fac as x402 Facilitator
     participant Chain as Algorand
@@ -108,7 +108,7 @@ endpoints, cross-checked against the canonical spec (`coinbase/x402` repo,
    and the `PaymentPayload` — a field this codebase's `PaymentRequiredResponseSchema`/
    `PaymentPayloadSchema` never had at all. `PaymentRequirement.resource` (the field this
    codebase already had, on every `accepts[]` entry) is a completely different,
-   AgentMarket-internal field: a relative route path (`/v1/analyze`) used for DB
+   Kaido Markets–internal field: a relative route path (`/v1/analyze`) used for DB
    bookkeeping/audit labels, never an absolute URL, and per the spec doesn't belong on
    `PaymentRequirements` at all. The facilitator's Bazaar extractor keys its catalog entry
    on the *spec's* `resource.url` — which this codebase simply never sent — so cataloging

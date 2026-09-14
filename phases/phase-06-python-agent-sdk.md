@@ -2,7 +2,7 @@
 
 ## Context
 
-`packages/agent-sdk` (`@rohankumar4179/agent-sdk`, TypeScript) is the reference implementation of AgentMarket's demand-side client — `AgentMarketClient` running the 402 → pay → 200 loop behind a fluent `.call().fallback().withRetries()` API, pluggable `PaymentScheme`s (mock for dev, real Algorand settlement via `@x402-avm/avm` for production), shareable `Budget`s, transient-only retries, and usage tracking. Read `packages/agent-sdk/README.md` and `packages/agent-sdk/src/client.ts` before starting — this phase ports the *design*, not a line-by-line transliteration, since Python's idioms (sync vs. async, context managers, dataclasses) differ from the TS version's.
+`packages/agent-sdk` (`@rohankumar4179/agent-sdk`, TypeScript) is the reference implementation of Kaido Markets' demand-side client — `KaidoMarketsClient` running the 402 → pay → 200 loop behind a fluent `.call().fallback().withRetries()` API, pluggable `PaymentScheme`s (mock for dev, real Algorand settlement via `@x402-avm/avm` for production), shareable `Budget`s, transient-only retries, and usage tracking. Read `packages/agent-sdk/README.md` and `packages/agent-sdk/src/client.ts` before starting — this phase ports the *design*, not a line-by-line transliteration, since Python's idioms (sync vs. async, context managers, dataclasses) differ from the TS version's.
 
 Python matters because most of the existing agent-framework ecosystem (LangChain, LlamaIndex, CrewAI) lives there — this is the other half of the "Tier 0" SDK commitment from the platform strategy, deliberately built as its own phase rather than rushed alongside the TypeScript one.
 
@@ -14,7 +14,7 @@ A Python package with the same feature set and semantics as `packages/agent-sdk`
 
 1. **Package location and packaging.** A new directory (e.g. `packages/agent-sdk-python/` to stay consistent with the monorepo's `packages/*` convention, even though it's a different language toolchain) with a proper `pyproject.toml` — not published to PyPI yet, but structured as if it will be.
 2. **Client surface, ported deliberately:**
-   - `AgentMarketClient` — decide explicitly whether this is async-first with a sync wrapper (matching how `openai-python`/`httpx` handle it) or sync-first with an async variant. Given agent frameworks are increasingly async, async-first with a thin sync convenience wrapper is the more future-proof default — but make the call explicitly and document why in the package README, don't leave it implicit.
+   - `KaidoMarketsClient` — decide explicitly whether this is async-first with a sync wrapper (matching how `openai-python`/`httpx` handle it) or sync-first with an async variant. Given agent frameworks are increasingly async, async-first with a thin sync convenience wrapper is the more future-proof default — but make the call explicitly and document why in the package README, don't leave it implicit.
    - The `.call()` → `PendingCall`-equivalent fluent/thenable pattern doesn't translate literally (Python has no `then()`); use whatever reads as idiomatic Python for "a call with an optional fallback chain" — a builder returning `self` for `.fallback()`/`.with_retries()` that's `await`-able (or `.execute()`-terminated, if that reads more naturally in Python than an implicit await does) is fine. Match Python conventions over forcing symmetry with the TS API shape.
    - `PaymentScheme` protocol (Python's `Protocol`/ABC) with `MockPaymentScheme` and `AlgorandPaymentScheme` implementations.
    - `Budget` / shared budget, retry policy, `UsageTracker`, `discover()`, `estimate_cost()` — same semantics as the TS versions (see the "Decisions worth knowing" section of `packages/agent-sdk`'s docs for the retry-vs-payment-failure asymmetry in particular; port that reasoning exactly, don't simplify it away).
@@ -34,7 +34,7 @@ A Python package with the same feature set and semantics as `packages/agent-sdk`
 ## Acceptance criteria
 
 - `pytest` suite passes, covering the same categories of behavior as `packages/agent-sdk/src/client.test.ts`: successful mock payment, budget enforcement (including a shared-budget case), transient-failure retry, non-retryable payment rejection, fallback chains (including the "single resource, no fallback configured — original error type surfaces, not a wrapper" case that the TS SDK's tests caught as a real bug), response caching, event stream ordering.
-- A live smoke test against a real running AgentMarket server in mock-payment mode succeeds end to end (register no equivalent needed — just call a metered endpoint, confirm payment, fallback, and budget rejection against the server's *real* declared price, mirroring exactly how the TypeScript SDK was verified).
+- A live smoke test against a real running Kaido Markets server in mock-payment mode succeeds end to end (register no equivalent needed — just call a metered endpoint, confirm payment, fallback, and budget rejection against the server's *real* declared price, mirroring exactly how the TypeScript SDK was verified).
 
 ## Not in scope
 

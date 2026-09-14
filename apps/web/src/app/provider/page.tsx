@@ -663,7 +663,7 @@ export default function ProviderPage() {
           <h1 className="font-display text-4xl font-bold tracking-tight text-foreground">Provider dashboard</h1>
         </div>
         <p className="mt-2 max-w-2xl text-muted">
-          Register, publish, price and manage the APIs you bring to AgentMarket — the same control plane the docs
+          Register, publish, price and manage the APIs you bring to Kaido Markets — the same control plane the docs
           describe, with a UI on top of it.
         </p>
       </div>

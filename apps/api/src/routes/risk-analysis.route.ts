@@ -1,4 +1,4 @@
-import { buildCacheKey, ttlFor } from '@agentmarket/cache';
+import { buildCacheKey, ttlFor } from '@kaido-markets/cache';
 import { RiskAnalysisResponseSchema, SymbolSchema, TimeframeSchema, type RiskAnalysisResponse } from '@rohankumar4179/shared-types';
 import type { FastifyInstance, FastifyRequest } from 'fastify';
 import { z } from 'zod';

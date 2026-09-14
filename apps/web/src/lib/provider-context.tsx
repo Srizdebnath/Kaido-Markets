@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 
-const STORAGE_KEY = 'agentmarket:provider-session';
+const STORAGE_KEY = 'kaidomarkets:provider-session';
 
 export interface ProviderSession {
   providerId: string;

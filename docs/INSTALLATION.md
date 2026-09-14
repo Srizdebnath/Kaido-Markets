@@ -14,7 +14,7 @@ provider is keyless.
 
 ```bash
 git clone <this-repo>
-cd agentmarket
+cd kaidomarkets
 npm install
 ```
 
@@ -33,7 +33,7 @@ docker compose --profile postgres up -d postgres
 ```
 
 Defaults work as-is for local dev otherwise (`PAYMENT_PROVIDER=mock`,
-`CACHE_DRIVER=memory`, `DATABASE_URL=postgresql://agentmarket:agentmarket@localhost:5432/agentmarket`
+`CACHE_DRIVER=memory`, `DATABASE_URL=postgresql://kaidomarkets:kaidomarkets@localhost:5432/kaidomarkets`
 — matching the docker-compose credentials above).
 
 ## Database

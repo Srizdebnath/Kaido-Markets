@@ -1,4 +1,4 @@
-# AgentMarket — 2:35 Pitch Script
+# Kaido Markets — 2:35 Pitch Script
 
 Narration script for a demo video / live pitch, timed at ~150 wpm (385 words total).
 Pair with screen capture of the live 402 → pay → 200 flow (see
@@ -14,7 +14,7 @@ agent can't even fill out.
 
 **[0:12–0:30]**
 
-AgentMarket fixes that. It's an x402-native marketplace — agents pay per API call, in
+Kaido Markets fixes that. It's an x402-native marketplace — agents pay per API call, in
 real USDC, on Algorand, the instant they need it. No signup. No API key. No monthly
 invoice. Just an HTTP request that either returns data, or returns a 402 with the price
 to unlock it.
@@ -43,7 +43,7 @@ rail — so any agent framework can plug in with three lines of code.
 
 **[1:45–2:10]**
 
-And it's not just our endpoints. AgentMarket is a marketplace — any provider can list
+And it's not just our endpoints. Kaido Markets is a marketplace — any provider can list
 their own intelligence API, set their own price, and get paid the same way, with us
 handling verification, rate limiting, and revenue settlement. We've already got the
 orchestration engine, observability, and a public status page live in production.
@@ -51,8 +51,8 @@ orchestration engine, observability, and a public status page live in production
 **[2:10–2:35]**
 
 The AI economy is agents transacting with agents, at machine speed, with no humans
-clicking "subscribe." AgentMarket is the payment and discovery layer that makes that
-possible today, on real infrastructure, not a roadmap slide. That's AgentMarket — the
+clicking "subscribe." Kaido Markets is the payment and discovery layer that makes that
+possible today, on real infrastructure, not a roadmap slide. That's Kaido Markets — the
 marketplace for AI agent commerce.
 
 ---

@@ -3,8 +3,8 @@
 import httpx
 import pytest
 
-from agentmarket_sdk.discovery import discover_listings
-from agentmarket_sdk.types import DiscoverQuery
+from kaido_markets_sdk.discovery import discover_listings
+from kaido_markets_sdk.types import DiscoverQuery
 
 CATALOG = [
     {

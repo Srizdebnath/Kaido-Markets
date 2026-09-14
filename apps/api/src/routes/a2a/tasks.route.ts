@@ -102,7 +102,7 @@ async function handleMessageSend(
   if (!skillId) {
     throw new A2AError(
       A2A_ERROR_CODES.InvalidParams,
-      'message.metadata.skillId is required to select which AgentMarket skill to invoke — fetch /.well-known/agent.json for the current catalog.',
+      'message.metadata.skillId is required to select which Kaido Markets skill to invoke — fetch /.well-known/agent.json for the current catalog.',
     );
   }
 
@@ -111,14 +111,14 @@ async function handleMessageSend(
   if (!tool) {
     throw new A2AError(A2A_ERROR_CODES.InvalidParams, `Unknown skill "${skillId}". Fetch /.well-known/agent.json for the current catalog.`);
   }
-  if (tool.agentmarket.isThirdParty) {
+  if (tool.kaidomarkets.isThirdParty) {
     throw new A2AError(
       A2A_ERROR_CODES.UnsupportedOperation,
       `"${skillId}" is a third-party listing — discoverable but not yet invocable via A2A (no gateway to its upstream).`,
     );
   }
 
-  const registryEntry = findFirstPartyTaskHandler(tool.agentmarket.resource);
+  const registryEntry = findFirstPartyTaskHandler(tool.kaidomarkets.resource);
   if (!registryEntry) {
     // Every first-party MCP tool has a registry entry — see first-party-task-registry.ts.
     throw new A2AError(A2A_ERROR_CODES.InternalError, `No task handler registered for "${skillId}".`);
@@ -141,7 +141,7 @@ async function handleMessageSend(
     throw err;
   }
 
-  const x402Gate = createX402PreHandler(ctx, { resource: tool.agentmarket.resource, priceUsd: tool.agentmarket.priceUsd ?? 0 });
+  const x402Gate = createX402PreHandler(ctx, { resource: tool.kaidomarkets.resource, priceUsd: tool.kaidomarkets.priceUsd ?? 0 });
   await x402Gate(request, reply);
   if (reply.sent) return undefined; // 402 / missing payment — plain HTTP shape, handled by the caller
 
@@ -166,7 +166,7 @@ async function handleMessageSend(
     const expiresAt = new Date(Date.now() + REPLAY_CACHE_TTL_SECONDS * 1000);
     const cached = await ctx.db.cachedResponses.upsert(
       `payment:${paymentContext.paymentRef}`,
-      tool.agentmarket.resource,
+      tool.kaidomarkets.resource,
       JSON.stringify(task),
       expiresAt,
     );
@@ -174,7 +174,7 @@ async function handleMessageSend(
 
     await ctx.db.apiRequests.create({
       requestId: request.requestId,
-      route: tool.agentmarket.resource,
+      route: tool.kaidomarkets.resource,
       method: 'A2A',
       ipAddress: request.ip,
       walletId: paymentContext.walletId,
@@ -184,7 +184,7 @@ async function handleMessageSend(
       latencyMs: Math.max(0, Date.now() - start),
     });
     if (paymentContext.walletId) {
-      await ctx.db.usage.record(tool.agentmarket.resource, tool.agentmarket.priceUsd ?? 0, paymentContext.walletId);
+      await ctx.db.usage.record(tool.kaidomarkets.resource, tool.kaidomarkets.priceUsd ?? 0, paymentContext.walletId);
     }
 
     tasks.set(taskId, task);
@@ -210,7 +210,7 @@ function handleTasksCancel(params: unknown, tasks: Map<string, A2ATask>): never 
   if (!task) throw new A2AError(A2A_ERROR_CODES.TaskNotFound, `No task found with id "${id}".`);
   throw new A2AError(
     A2A_ERROR_CODES.TaskNotCancelable,
-    `Task "${id}" already reached a terminal state ("${task.status.state}") before the cancel request arrived — AgentMarket's first-party endpoints execute synchronously, so there is never anything in flight to cancel.`,
+    `Task "${id}" already reached a terminal state ("${task.status.state}") before the cancel request arrived — Kaido Markets' first-party endpoints execute synchronously, so there is never anything in flight to cancel.`,
   );
 }
 

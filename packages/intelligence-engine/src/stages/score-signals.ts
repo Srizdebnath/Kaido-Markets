@@ -1,4 +1,4 @@
-import type { OhlcCandle } from '@agentmarket/providers';
+import type { OhlcCandle } from '@kaido-markets/providers';
 import type { MarketSnapshot, SignalScores, TrendDirection } from '../types.js';
 import { clamp } from '../utils.js';
 

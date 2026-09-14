@@ -16,7 +16,7 @@ export interface RedisClientLike {
 export class RedisCache implements ICache {
   constructor(
     private readonly client: RedisClientLike,
-    private readonly keyPrefix = 'agentmarket:',
+    private readonly keyPrefix = 'kaidomarkets:',
   ) {}
 
   private prefixed(key: string): string {

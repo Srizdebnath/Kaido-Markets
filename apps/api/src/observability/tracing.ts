@@ -5,7 +5,7 @@ import { NodeTracerProvider } from '@opentelemetry/sdk-trace-node';
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 
-const SERVICE_NAME = 'agentmarket-api';
+const SERVICE_NAME = 'kaido-markets-api';
 
 /**
  * Real distributed tracing (Phase 13), scoped honestly: no OTel

@@ -176,7 +176,7 @@ export default function ExplorerPage() {
     <div className="mx-auto max-w-5xl px-6 py-12">
       <h1 className="font-display text-4xl font-bold tracking-tight text-foreground">API Explorer</h1>
       <p className="mt-2 max-w-2xl text-muted">
-        Pick an endpoint and send a request. You&apos;ll see the real HTTP 402, then AgentMarket authorize a
+        Pick an endpoint and send a request. You&apos;ll see the real HTTP 402, then Kaido Markets authorize a
         payment and retry — exactly what an autonomous agent does, no manual checkout.
       </p>
 

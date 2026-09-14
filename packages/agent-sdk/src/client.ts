@@ -12,7 +12,7 @@ import { ATOMIC_UNITS_PER_USD } from './types.js';
 import { UsageTracker } from './usage-tracker.js';
 import type {
   AgentEvent,
-  AgentMarketClientConfig,
+  KaidoMarketsClientConfig,
   CallOptions,
   CallParams,
   CapabilitySearchQuery,
@@ -53,7 +53,7 @@ export class PendingCall<T = unknown> implements PromiseLike<T> {
   private retryOverride: CallOptions['retry'];
 
   constructor(
-    private readonly client: AgentMarketClient,
+    private readonly client: KaidoMarketsClient,
     private readonly resource: string,
     private readonly params: CallParams | undefined,
     private readonly options: CallOptions,
@@ -119,11 +119,11 @@ export class PendingCall<T = unknown> implements PromiseLike<T> {
  * agent identity/wallet — construct it once, keep calling `.call()`.
  *
  * ```ts
- * const agent = new AgentMarketClient({ paymentScheme: createMockPaymentScheme() });
+ * const agent = new KaidoMarketsClient({ paymentScheme: createMockPaymentScheme() });
  * const risk = await agent.call('/v1/risk-analysis', { symbol: 'BTC' }).fallback('/v1/portfolio-health');
  * ```
  */
-export class AgentMarketClient {
+export class KaidoMarketsClient {
   readonly usage = new UsageTracker();
   private readonly budget?: Budget;
   private readonly cache = new Map<string, CacheEntry>();
@@ -131,7 +131,7 @@ export class AgentMarketClient {
   private readonly fetchImpl: typeof fetch;
   private readonly baseUrl: string;
 
-  constructor(private readonly config: AgentMarketClientConfig) {
+  constructor(private readonly config: KaidoMarketsClientConfig) {
     this.baseUrl = (config.baseUrl ?? 'http://localhost:4000').replace(/\/$/, '');
     this.fetchImpl = config.fetchImpl ?? fetch;
     this.sessionId = config.sessionId ?? randomUUID();

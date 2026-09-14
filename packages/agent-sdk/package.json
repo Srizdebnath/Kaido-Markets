@@ -2,7 +2,7 @@
   "name": "@rohankumar4179/agent-sdk",
   "version": "0.1.0",
   "type": "module",
-  "description": "TypeScript client for autonomous agents calling AgentMarket's x402-metered APIs — automatic payment, budgets, retries, fallbacks, and usage tracking.",
+  "description": "TypeScript client for autonomous agents calling Kaido Markets' x402-metered APIs — automatic payment, budgets, retries, fallbacks, and usage tracking.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

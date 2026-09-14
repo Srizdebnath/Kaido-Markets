@@ -1,5 +1,5 @@
 """Error hierarchy — the Python port of `packages/agent-sdk/src/errors.ts`.
-Catch `AgentMarketError` to catch everything below it instead of
+Catch `KaidoMarketsError` to catch everything below it instead of
 string-matching messages."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ from __future__ import annotations
 from typing import Any, Literal
 
 
-class AgentMarketError(Exception):
+class KaidoMarketsError(Exception):
     """Base class for every error this SDK raises."""
 
     def __init__(self, message: str, code: str) -> None:
@@ -15,7 +15,7 @@ class AgentMarketError(Exception):
         self.code = code
 
 
-class BudgetExceededError(AgentMarketError):
+class BudgetExceededError(KaidoMarketsError):
     """A call would push spend past a configured Budget cap — raised *before* any payment is constructed or sent."""
 
     def __init__(self, limit: Literal["per_call", "session", "daily"], limit_usd: float, would_spend_usd: float, resource: str) -> None:
@@ -30,7 +30,7 @@ class BudgetExceededError(AgentMarketError):
         self.resource = resource
 
 
-class UnsupportedPaymentSchemeError(AgentMarketError):
+class UnsupportedPaymentSchemeError(KaidoMarketsError):
     """The server issued payment requirements this client has no scheme for."""
 
     def __init__(self, network: str) -> None:
@@ -38,7 +38,7 @@ class UnsupportedPaymentSchemeError(AgentMarketError):
         self.network = network
 
 
-class PaymentFailedError(AgentMarketError):
+class PaymentFailedError(KaidoMarketsError):
     """Payment was constructed and sent, but the server rejected it — see `server_code`/`details` for why."""
 
     def __init__(self, server_code: str, message: str, details: dict[str, Any] | None = None) -> None:
@@ -47,7 +47,7 @@ class PaymentFailedError(AgentMarketError):
         self.details = details
 
 
-class HttpError(AgentMarketError):
+class HttpError(KaidoMarketsError):
     """A non-payment HTTP error (validation, not found, rate limited, internal, ...)."""
 
     def __init__(self, status_code: int, server_code: str, message: str, details: dict[str, Any] | None = None) -> None:
@@ -65,7 +65,7 @@ class ProviderAttempt:
         self.error = error
 
 
-class AllProvidersFailedError(AgentMarketError):
+class AllProvidersFailedError(KaidoMarketsError):
     """The primary resource and every configured fallback all failed — `attempts` preserves each one's error in order."""
 
     def __init__(self, attempts: list[ProviderAttempt]) -> None:

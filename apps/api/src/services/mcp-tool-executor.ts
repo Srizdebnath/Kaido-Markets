@@ -9,13 +9,13 @@ import { buildCatalogTools, type CatalogTool } from './mcp-catalog.js';
 export type McpToolResult = CallToolResult;
 
 /**
- * The reserved `_agentmarket` control block every catalog tool's input
- * schema advertises — see mcp-catalog.ts's AGENTMARKET_CONTROL_SCHEMA for
+ * The reserved `_kaidomarkets` control block every catalog tool's input
+ * schema advertises — see mcp-catalog.ts's KAIDO_MARKETS_CONTROL_SCHEMA for
  * the machine-readable description of each field. Parsed leniently
  * (`.default({})`, every field optional): a caller that omits it entirely
  * just gets stateless, no-budget, first-call-needs-a-402 behavior.
  */
-const AgentMarketControlSchema = z
+const KaidoMarketsControlSchema = z
   .object({
     payment: z.string().optional(),
     sessionId: z.string().optional(),
@@ -55,7 +55,7 @@ function paymentRequiredResult(toolName: string, body: PaymentRequiredResponse):
   const requirement = body.accepts[0];
   const summary = requirement
     ? `"${toolName}" costs ${requirement.amount ?? requirement.maxAmountRequired} atomic units of ${requirement.asset} on ${requirement.network}, payable to ${requirement.payTo}. ` +
-      'Sign a payment against this requirement, base64-encode the X-PAYMENT payload, and resend this same tool call with it in `_agentmarket.payment`.'
+      'Sign a payment against this requirement, base64-encode the X-PAYMENT payload, and resend this same tool call with it in `_kaidomarkets.payment`.'
     : `"${toolName}" requires payment.`;
   const structured = { code: 'PAYMENT_REQUIRED', message: summary, paymentRequired: body };
   return {
@@ -93,16 +93,16 @@ export async function executeCatalogTool(
     return errorResult('CAPABILITY_NOT_FOUND', `Unknown tool "${toolName}".`);
   }
 
-  const parsedControl = AgentMarketControlSchema.safeParse((rawArguments ?? {})._agentmarket);
+  const parsedControl = KaidoMarketsControlSchema.safeParse((rawArguments ?? {})._kaidomarkets);
   if (!parsedControl.success) {
-    return errorResult('INVALID_ARGUMENT', 'Invalid `_agentmarket` control block.', parsedControl.error.flatten());
+    return errorResult('INVALID_ARGUMENT', 'Invalid `_kaidomarkets` control block.', parsedControl.error.flatten());
   }
   const control = parsedControl.data;
 
   const forwardedArgs = { ...(rawArguments ?? {}) };
-  delete forwardedArgs._agentmarket;
+  delete forwardedArgs._kaidomarkets;
 
-  const priceUsd = tool.agentmarket.priceUsd;
+  const priceUsd = tool.kaidomarkets.priceUsd;
   if (priceUsd !== null && priceUsd > 0) {
     const budgetConfig = {
       perCallUsd: control.maxCostUsd,
@@ -164,26 +164,26 @@ async function injectToolCall(
   // loopback bucket instead of the MCP caller's own IP.
   const remoteAddress = callerRequest.ip;
 
-  if (tool.agentmarket.isThirdParty) {
+  if (tool.kaidomarkets.isThirdParty) {
     const res = await server.inject({
       method: 'POST',
-      url: `/v1/listings/${tool.agentmarket.slug}/invoke`,
+      url: `/v1/listings/${tool.kaidomarkets.slug}/invoke`,
       headers: { ...headers, 'content-type': 'application/json' },
       remoteAddress,
-      payload: { operationId: tool.agentmarket.operationId, params: args },
+      payload: { operationId: tool.kaidomarkets.operationId, params: args },
     });
     return { statusCode: res.statusCode, body: safeJson(res.body), headers: res.headers };
   }
 
-  if (tool.agentmarket.method === 'GET' || tool.agentmarket.method === 'DELETE') {
+  if (tool.kaidomarkets.method === 'GET' || tool.kaidomarkets.method === 'DELETE') {
     const query = new URLSearchParams();
     for (const [key, value] of Object.entries(args)) {
       if (value !== undefined) query.set(key, String(value));
     }
     const qs = query.toString();
     const res = await server.inject({
-      method: tool.agentmarket.method,
-      url: qs ? `${tool.agentmarket.resource}?${qs}` : tool.agentmarket.resource,
+      method: tool.kaidomarkets.method,
+      url: qs ? `${tool.kaidomarkets.resource}?${qs}` : tool.kaidomarkets.resource,
       headers,
       remoteAddress,
     });
@@ -191,8 +191,8 @@ async function injectToolCall(
   }
 
   const res = await server.inject({
-    method: tool.agentmarket.method,
-    url: tool.agentmarket.resource,
+    method: tool.kaidomarkets.method,
+    url: tool.kaidomarkets.resource,
     headers: { ...headers, 'content-type': 'application/json' },
     remoteAddress,
     payload: args,
